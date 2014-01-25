@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="2000">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>Client</title>
+
+       <style>
+       
+        div {margin:13px;}
+       
+       </style>
+
+    <script type="text/javascript">
+    
+      window.controlLocation = "{{=URL('run','compute')}}";
+    
+    </script>
+    <script type="text/javascript"
+     src="{{=URL('static','jquery-1.10.0.min.js')}}">
+    </script>
+    <script type="text/javascript"
+     src="{{=URL('static','client.js')}}">
+    </script>
+</head>
+<body>
+
+<div>Proszę podać rok: <input id="year" onchange="check();" onkeyup="check();"></div>
+
+<div>
+<span id="output">
+
+</span>
+
+</div>
+
+</body>
+</html>

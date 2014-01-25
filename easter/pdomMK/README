@@ -1,0 +1,73 @@
+------------------------------------------------------------------------------
+Przerobił i zaadaptował: Michał Krawczak
+
+Oryginał wykonany przez dr. R.Nowaka znajduje się pod następującym adresem:
+http://staff.elka.pw.edu.pl/~rnowak2/dyd/zpr2013L/homework.html
+------------------------------------------------------------------------------
+
+
+Przykladowa aplikacja wykorzystująca Python(web2py) + C++(boost) + JavaScript (JQuery)
+
+Jest to prosty program, który mając dany na wejściu rok (z zakresu 33-2999) oblicza
+datę wielkanocy w tym roku wg. dwóch porządków (prawosławnego i katolickiego).
+
+wymaga bibliotek:
+
+boost, web2py, SCons
+
+kompilacja
+----------
+
+kompilacja pod Linux:
+
+scons
+
+kompilacja pod Windows:
+(kompilację należy uruchomić w oknie terminala Visual Studio)
+
+scons
+
+
+KONFIGURACJA ŚRODOWISKA PROGAMISTYCZNEGO DLA UBUNTU
+-------------------------------------------------------------
+
+1) sudo apt-get install g++ python python-dev
+2) pobrać i rozpakować web2py
+3) pobrać i rozpakować www.boost.org, później 'bootstrap.sh', później (kompilacja) './b2'
+4) skopiować podkatalog 'boost' do '/usr/include' (powinien powstać katalog '/usr/include/boost'), skopiować wszystkie pliki z 'stage/lib' do '/usr/lib'
+5) sudo apt-get install scons
+
+KONFIGURACJA ŚRODOWISKA PROGAMISTYCZNEGO DLA WINDOWS (XP)
+-------------------------------------------------------------
+
+1) Zainstalować Microsoft Visual Studio
+2) Zainstalować Pyhona 2.7 (np. w domyślnej ścieżce C:\Python27\), dodać ścieżkę, gdzie zainstalowano Python-a do Path.
+3) Pakiety dla Pythona będą instalowane przez pip, zainstalowac to narzedzie
+4) pobrać i rozpakować http://www.boost.org, później uruchomić 'bootstrap', później (kompilacja) './bjam.exe --build-type=complete'.
+   Polecenia wykonywać w oknie terminala Visual Studio (muszą być ustawione ścieżki do kompilatora)
+5) 'bjam --build-type=complete install' //kopiuje naglowki i wersje relase do katalogu C:/boost, ustawić odpowiednie ścieżki w Visual Studio
+6) Zainstalować Scons (http://www.scons.org)
+
+
+TESTOWANIE WOLANIA BIBILOTEKI POD PYTHONEM
+------------------------------------------
+
+1) przejść do katalogu 'app/modules', powinna być tam skopiowana biblioteka dzielona
+2) uruchomić interpreter Pythona
+3) >import calc
+   >print calc.computeCatholic(234)
+   >print calc.computeOrtodox(234)
+
+TESTOWANIE SERWERA
+------------------------------------------
+1) rozpakować web2py do katalogu X
+2) skopiować katalog 'app' do podkatalogu 'applications/app' dla web2py
+3) uruchomić serwer: w katalogu X wydać komendę 'python web2py'
+4) serwer powinien zacząć działać 
+5) wykonać skrypt echo.py, tzn. wykonać komendę 'python echo.py'
+
+TESTOWANIE APLIKACJI
+-----------------------------------------
+1) wykonać punkty 1-3 z poprzedniego opisu
+2) uruchomić przeglądarkę z adresem 'http://127.0.0.1/app' - powinna się pojawić strona 'app/views/default/index.html'
+3) wpisać rok w odpowiednie pole

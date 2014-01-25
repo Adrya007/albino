@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<s:Application
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009">
+		
+	<fx:Script>
+		<![CDATA[
+			import mx.rpc.remoting.mxml.RemoteObject
+			import mx.rpc.events.FaultEvent
+			import mx.rpc.events.ResultEvent
+
+			private var remoteObj : RemoteObject = null;
+
+			private function onClick() : void
+			{
+				remoteObj = new RemoteObject();
+				remoteObj.endpoint = "http://127.0.0.1:8000/sudoku/amf/call/amfrpc3";
+				remoteObj.destination = 'srv';
+				remoteObj.echo.addEventListener("result", onResultEcho);
+				remoteObj.echo(problem.text);
+			}
+
+			private function onResultEcho(re : ResultEvent) : void 
+			{
+				solution.text = re.result as String;
+			}
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+
+	<s:Panel left="10" right="10" top="10" bottom="10" title="Sudoku Solver" width="100%" height="100%">
+		<s:VGroup left="10" right="10" top="10" bottom="10" width="100%" >
+			<s:TextArea
+					id="problem"
+					editable="true"
+					lineBreak="explicit"
+					fontFamily="_typewriter, Courier, Courier New, _sans"
+					width="300"
+					height="300"
+					fontSize="20"
+					toolTip="Sudoku puzzle to be solved"
+					text="12.|4.6|7.9&#13;.5.|7..|1..&#13;..9|..3|.5.&#13;---+---+---&#13;23.|..7|8..&#13;...|.9.|2..&#13;8.1|2.4|.6.&#13;---+---+---&#13;.4.|..8|91.&#13;6.8|...|...&#13;.1.|.45|6.8"
+				/>
+			<s:Button
+					label="Solve this sudoku!"
+					click="onClick()"
+				/>
+			<s:TextArea
+					id="solution"
+					editable="false"
+					lineBreak="explicit"
+					fontFamily="_typewriter, Courier, Courier New, _sans"
+					width="300"
+					height="300"
+					toolTip="Solution of given sudoku puzzle"
+					fontSize="20"
+				/>
+		</s:VGroup>
+	</s:Panel>
+
+</s:Application>
+

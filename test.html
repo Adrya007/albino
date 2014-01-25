@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<script>
+		var txt1 = "Tekst początkowy"
+		var txt2 = "Inny tekst zamienny"
+		function swapTxt(el, x, y) {
+			console.log("cośtam")
+			if (document.getElementById(el).innerHTML == x) {
+				document.getElementById(el).innerHTML = y;
+			} else {
+				document.getElementById(el).innerHTML = x;
+			}
+		}
+	</script>
+	<script>
+		function clicked() {
+			var input = document.getElementById('testForm').;
+		}
+	</script>
+</head>
+<body>
+	<div id="przycisk">
+		<p><input
+			type="button" name="testButton"
+			onClick="swapTxt('tekst', txt1, txt2)" value="Zwykły przycisk"
+			/>
+		</p>
+		<p><input
+			type="text" id="testForm"
+			onClick="clicked()" value="coś?"
+			/>
+		</p>
+	</div>
+	<div id="tekst">
+	</div>
+</body>
+</html>
