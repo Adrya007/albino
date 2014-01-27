@@ -60,13 +60,13 @@ Computus::Date Computus::doGauss(int year, int M, int N)
     month = 4;
     
     // wyjatki:
-    if(d == 29 and e == 6)
+    if(d == 29 && e == 6)
     {
       // jesli d == 29 i e == 6 to wielkanoc odbywa sie 19 kwietnia, a nie 26 kwietnia
       day = 19;
     }
     else
-    if(d == 28 and e == 6 and a > 10)
+    if(d == 28 && e == 6 && a > 10)
     {
       // 18 kwietnia, zamiast 25 kwietnia
       day = 18;
@@ -96,7 +96,7 @@ std::string Computus::computeOrtodox(int year)
 
 void Computus::checkYear(int year)
 {
-  if(year < 33 or year >= 3000)
+  if(year < 33 || year >= 3000)
   {
     throw YearOutOfRangeException();
   }

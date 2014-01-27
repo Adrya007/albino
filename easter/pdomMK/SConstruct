@@ -23,10 +23,10 @@ if(platform.system() == "Linux"):
 
    env.Append( LIBS = [ 'boost_python' ] )
 elif(platform.system() == "Windows"):
-   env.Append( CPPPATH = [ Dir('C:/Boost/include/boost-1_52'), #tutaj zainstalowane naglowki boost
-                           Dir('C:/Python27/include') ] ) #tutaj zaistalowane naglowki python
-   env.Append( LIBPATH = [ Dir('C:/Boost/lib'), #tutaj sciezka do bibliotek boost
-                           Dir('C:/Python27/libs') ] ) #tutaj sciezki do bibliotek python
+   env.Append( CPPPATH = [ Dir('C:/dev/boost_1_55'), #tutaj zainstalowane naglowki boost
+                           Dir('C:/dev/Python27/include') ] ) #tutaj zaistalowane naglowki python
+   env.Append( LIBPATH = [ Dir('C:/dev/boost_1_55/stage/lib'), #tutaj sciezka do bibliotek boost
+                           Dir('C:/dev/Python27/libs') ] ) #tutaj sciezki do bibliotek python
 
    env.Append( CPPFLAGS = ' /EHsc /MD /D "WIN32" /D "_CONSOLE" /W4' )
    env.Append( LINKFLAGS = ' /SUBSYSTEM:WINDOWS ' )
