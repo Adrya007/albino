@@ -13,8 +13,17 @@ using namespace std;
 
 //konstruktor2
 KatalogGalerii::KatalogGalerii()
-
 {
+	init("", false, false);
+}
+//-------------------------------------------
+
+KatalogGalerii::KatalogGalerii(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik)
+{
+	init(miejsce_galerii, czy_bilety, czy_przewodnik);
+}
+
+void KatalogGalerii::init(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik) {
 	//definicja zmienych prywatnych
 	this->URL_Baza = "baza_log/KatalogGaleryjki.txt";
 	this->URL_AutoIncrement = "baza_log/AutoIncrement.txt";
@@ -28,11 +37,7 @@ KatalogGalerii::KatalogGalerii()
 	fstream plik;
 	plik.open(this->URL_AutoIncrement, ios::app);
 	plik.close();
-}
-//-------------------------------------------
-
-KatalogGalerii::KatalogGalerii(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik)
-{
+	//------------
 	miejsce_galerii_ = miejsce_galerii;
 	czy_bilety_ = czy_bilety;
 	czy_przewodnik_ = czy_przewodnik;
@@ -455,7 +460,7 @@ void KatalogGalerii::skasujKatalog(int wyswietlKomunikat)
 void KatalogGalerii::wczytajKatalogZPliku(bool komunikat, bool czy_kasowac)
 {
 	bool zaladuj_baze;
-	if(komunikat == 1) //wyswietl komunikat z pytaniem czy zaladowac baze
+	if (komunikat == 1) //wyswietl komunikat z pytaniem czy zaladowac baze
 	{
 		cout<<"Czy chcesz wczytac baze danych z pliku do pamieci programu?\n"
 			<<"(Baza zawarta w pamieci programu zostanie nadpisana baza z pliku)\n"
@@ -467,55 +472,55 @@ void KatalogGalerii::wczytajKatalogZPliku(bool komunikat, bool czy_kasowac)
 		} while(nawigacja_dodaj != '1' && nawigacja_dodaj != '2');
 		if(nawigacja_dodaj == '1') {
 			zaladuj_baze = 1;
-			cout<<"Wczytano!\n";
+			cout << "Wczytano!\n";
 		} else {
 			zaladuj_baze = 0;
-			cout<<"Anulowano wczytywanie bazy z pliku...\n";
+			cout << "Anulowano wczytywanie bazy z pliku...\n";
 		}
 	} else { // nie wyswietlamy komunikatu i odrazu ladujemy automatycznie baze
-		zaladuj_baze = 1;
+		zaladuj_baze = true;
 	}
-	if(zaladuj_baze) {
-		//skasowanie obecnej bazy w pamieci programu
-		//jesli ladujemy baze przy pierwszym uruhcomieniu programu to nie uruchamiamy funkcji kasujacej
-		if(czy_kasowac == 1) { //true = uruchom funkcje kasujaca baze
-			skasujKatalog();
-		}
-		// odczyt bazy
+	if(!zaladuj_baze)
+		return;
+	//skasowanie obecnej bazy w pamieci programu
+	//jesli ladujemy baze przy pierwszym uruhcomieniu programu to nie uruchamiamy funkcji kasujacej
+	if(czy_kasowac == 1) { //true = uruchom funkcje kasujaca baze
+		skasujKatalog();
+	}
+	// odczyt bazy
 
-		ifstream ifile(this->URL_Baza); // TODO null przy odpalaniu?
-		string tab[5]; //tablica zawierajaca 5 wierszy z kazdym polem informacji z bazy txt
-		string wiersz;
-		int l=1; //liczba linii
-		while(!ifile.eof()) {
-			getline(ifile,wiersz);
-			//cout<<l<<": "<<wiersz<<endl;
-			if(wiersz!="")
-			{
-				if(l%7==0) {
-					tab[6] = wiersz;
-				} else if(l%6==0) {
-					tab[5] = wiersz;
-				} else if(l%5==0) {
-					tab[4] = wiersz; //tab[4] bo indexy od 0
-				} else if(l%4==0) {
-					tab[3] = wiersz;
-				} else if(l%3==0) {
-					tab[2] = wiersz;
-				} else if(l%2==0) {
-					tab[1] = wiersz;
-				} else if(l%1==0) {
-					tab[0] = wiersz;
-				}
-			}
+	ifstream ifile(this->URL_Baza); // TODO null przy odpalaniu?
+	string tab[7]; //tablica zawierajaca 5 wierszy z kazdym polem informacji z bazy txt
+	string wiersz;
+	int l=1; //liczba linii
+	while(!ifile.eof()) {
+		getline(ifile,wiersz);
+		//cout<<l<<": "<<wiersz<<endl;
+		if(wiersz!="")
+		{
 			if(l%7==0) {
-				dodajEksponatBezposrednio(this->lista_poczatek, this->lista_koniec, tab[0],tab[1],tab[2],tab[3],tab[4],tab[5],tab[6]);
-				l=0; //resetujemy po 5 rekordach na 0 licznik
+				tab[6] = wiersz;
+			} else if(l%6==0) {
+				tab[5] = wiersz;
+			} else if(l%5==0) {
+				tab[4] = wiersz; //tab[4] bo indexy od 0
+			} else if(l%4==0) {
+				tab[3] = wiersz;
+			} else if(l%3==0) {
+				tab[2] = wiersz;
+			} else if(l%2==0) {
+				tab[1] = wiersz;
+			} else if(l%1==0) {
+				tab[0] = wiersz;
 			}
-			l++;
 		}
-		ifile.close();
+		if (l % 5 == 0) {
+			dodajEksponatBezposrednio(this->lista_poczatek, this->lista_koniec, tab[0],tab[1],tab[2],tab[3],tab[4],tab[5],tab[6]);
+			l=0; //resetujemy po 5 rekordach na 0 licznik
+		}
+		l++;
 	}
+	ifile.close();
 //funkcja przyjmujaca jako argumenty stringi, dodajemy nowy rekord na koniec listy
 }
 //-------------------

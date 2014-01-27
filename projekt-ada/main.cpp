@@ -14,11 +14,11 @@ void color(int);
 void clear_screen();
 void menu_glowne();
 
-KatalogGalerii db("Warszawa", 1, 1); //tworze obiekt db katalogu
 
 //------------
 int main( int argc, char* argv[] )
 {
+	KatalogGalerii db("Warszawa", 1, 1); //tworze obiekt db katalogu
 	/*
 	 *	ladujemy baze danych przy uruchomieniu programu,
 	 *	0 - nie wyswietlamy komunikatu czy wczytac baze,

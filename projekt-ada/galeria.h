@@ -59,6 +59,7 @@ public:
 	KatalogGalerii();
 	void dodajEksponatBezposrednio(Eksponat* &, Eksponat* &, string, string, string, string, string, string, string);
 	KatalogGalerii(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik);
+	init(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik);
 	~KatalogGalerii();
 	void czymJestes();
 	void saveAutoIncrement();
