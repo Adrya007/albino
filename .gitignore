@@ -1,0 +1,13 @@
+# object files, exe files
+
+*.o
+*.exe
+
+# log files
+
+*.log
+
+# python trash
+
+*.pyc
+*.pyd
