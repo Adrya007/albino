@@ -1,6 +1,7 @@
 # object files, exe files
 
 *.o
+*.obj
 *.exe
 
 # log files
@@ -11,3 +12,12 @@
 
 *.pyc
 *.pyd
+
+# Visual trash
+
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.filters
+Debug/
+Release/

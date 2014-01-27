@@ -6,7 +6,6 @@
 #include <ctime> // time()
 #include <Windows.h> //zawiera funkcje SetConsoleTextAttribute
 #include "galeria.h"
-#include "galeria.cpp"
 
 using namespace std;
 
@@ -20,83 +19,92 @@ KatalogGalerii db("Warszawa", 1, 1); //tworze obiekt db katalogu
 //------------
 int main( int argc, char* argv[] )
 {
-
-db.wczytajKatalogZPliku(0, 0); //ladujemy baze danych przy uruchomieniu programu, 0- nie wyswietlamy komunikatu czy wczytac baze, 0-nie kasujemy baze, bo przy pierwszym ladowaniu baza jest juz pusta
-menu_glowne();
-db.saveAutoIncrement(); //zapisanie wartosci ostatnio dodanego ID
-return 0; }
+	/*
+	 *	ladujemy baze danych przy uruchomieniu programu,
+	 *	0 - nie wyswietlamy komunikatu czy wczytac baze,
+	 *	0 - nie kasujemy baze, bo przy pierwszym ladowaniu baza jest juz pusta
+	 */
+	db.wczytajKatalogZPliku(0, 0);
+	menu_glowne();
+	db.saveAutoIncrement(); //zapisanie wartosci ostatnio dodanego ID
+	return 0;
+}
 
 void color(int i) { // funkcja wlacza kolorowanie napisow drukowanych przez cout
-    if(i==1)
-    { // czerwony
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
-        }
-        else if(i==2)
-        { // bialy
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-            }
-            else if(i==3) { // zielony
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-                }
-                else if(i==4) { // niebieski
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
-                     }
-                     else if(i==5) { // czarno na bialym
-                         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_INTENSITY | FOREGROUND_INTENSITY | BACKGROUND_GREEN | BACKGROUND_BLUE);
-                          } else { // domyslny kolor tekstu w konsoli
-                              SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); } }
+	if (i==1) {
+		// czerwony
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
+	} else if (i==2)	{
+		// bialy
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	} else if (i==3) {
+		// zielony
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
+	} else if (i==4) {
+		// niebieski
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
+	} else if (i==5) {
+		// czarno na bialym
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_INTENSITY | FOREGROUND_INTENSITY | BACKGROUND_GREEN | BACKGROUND_BLUE);
+	} else {
+		// domyslny kolor tekstu w konsoli
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	}
+}
 
 //--------------
 
 void clear_screen()
 {
-//system("cls");
-cout<<"\n\n====== Katalog galerii sztuki 'ADA' ======\n";
-db.returnAutoIncrementAndLiczbaRekordow();
-color(1);
-cout<<"1";
-color(0);
-cout<<" - wczytaj katalog z pliku, \n";
-color(1);
-cout<<"2";
-color(0);
-cout<<" - zapisz katalog, \n";
-color(1);
-cout<<"3";
-color(0);
-cout<<" - skasuj katalog,\n";
-color(3);
-cout<<"4";
-color(0);
-cout<<" - dodaj nowy eksponat, \n";
-color(3);
-cout<<"5";
-color(0);
-cout<<" - usun eksponat, \n";
-color(3);
-cout<<"6";
-color(0);
-cout<<" - edytuj eksponat\n";
-color(4);
-cout<<"7";
-color(0);
-cout<<" - wyswietl eksponaty, \n";
-color(4);
-cout<<"8";
-color(0);
-cout<<" - posortuj eksponaty, \n";
-color(4);
-cout<<"9";
-color(0);
-cout<<" - wyszukaj eksponat\n";
-color(4);
-cout<<"10";
-color(0);
-cout<<" - wyswietl info o galerii\n";
-color(2);
-cout<<"k";
-color(0);
-cout<<" - koniec\n"; }
+
+	//system("cls");
+	cout<<"\n\n====== Katalog galerii sztuki 'ADA' ======\n";
+	db.returnAutoIncrementAndLiczbaRekordow();
+	color(1);
+	cout<<"1";
+	color(0);
+	cout<<" - wczytaj katalog z pliku, \n";
+	color(1);
+	cout<<"2";
+	color(0);
+	cout<<" - zapisz katalog, \n";
+	color(1);
+	cout<<"3";
+	color(0);
+	cout<<" - skasuj katalog,\n";
+	color(3);
+	cout<<"4";
+	color(0);
+	cout<<" - dodaj nowy eksponat, \n";
+	color(3);
+	cout<<"5";
+	color(0);
+	cout<<" - usun eksponat, \n";
+	color(3);
+	cout<<"6";
+	color(0);
+	cout<<" - edytuj eksponat\n";
+	color(4);
+	cout<<"7";
+	color(0);
+	cout<<" - wyswietl eksponaty, \n";
+	color(4);
+	cout<<"8";
+	color(0);
+	cout<<" - posortuj eksponaty, \n";
+	color(4);
+	cout<<"9";
+	color(0);
+	cout<<" - wyszukaj eksponat\n";
+	color(4);
+	cout<<"10";
+	color(0);
+	cout<<" - wyswietl info o galerii\n";
+	color(2);
+	cout<<"k";
+	color(0);
+	cout<<" - koniec\n";
+}
 
 void menu_glowne() {
 clear_screen();
