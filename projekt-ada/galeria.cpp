@@ -1,10 +1,7 @@
-#include <iostream>
-#include <fstream>
 #include <conio.h>
-#include <string>
 #include <time.h>
+#include <iostream>
 #include <sstream> // do konwersji
-#include <cstdlib>
 
 #include "galeria.h"
 
@@ -465,17 +462,12 @@ void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
 				lista_poczatek = wn;
 		}
 		lista_koniec = wn; //nowy eksponat koncowy
-		cout << "Dodano rekord: "
-			<< wn->id << ", "
-			<< wn->tytul_dziela << ", "
-			<< wn->imie_autora << ", "
-			<< wn->nazwisko_autora <<", "
-			<< wn->narodowosc_autora << ", "
-			<< wn->data_wykonania << ", "
-			<< wn->cena_w_pln << "\n";
+		cout << "Dodano rekord:\n";
+		wn->zapiszNaStrumien(cout);
 		this->liczbaEksponatow++;
 	}
 }
+
 //-------------------------------------------
 int Eksponat::fromString(string s) {
 	int result = 0;

@@ -2,9 +2,7 @@
 
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <cstdlib>
-#include <list>
 
 using namespace std;
 
