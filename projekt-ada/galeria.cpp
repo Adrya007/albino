@@ -33,9 +33,9 @@ void KatalogGalerii::init(string miejsce_galerii, bool czy_bilety, bool czy_prze
 		//odczyt
 		ifstream ifile(this->URL_AutoIncrement);
 		string plik_au;
-		while(!ifile.eof()) {
+		while (!ifile.eof()) {
 			getline(ifile,plik_au);
-			if(plik_au.length() == 0) {
+			if (plik_au.length() == 0) {
 				this->autoIncrement = 0;
 			} else {
 				this->autoIncrement = atoi(plik_au.c_str()); //przypisanie do zmiennej prywatnej informacji o ostatnim ID
@@ -47,41 +47,33 @@ void KatalogGalerii::init(string miejsce_galerii, bool czy_bilety, bool czy_prze
 		czy_bilety_ = czy_bilety;
 		czy_przewodnik_ = czy_przewodnik;
 }
+
 //-------------------------------------------
 void KatalogGalerii::wypiszInfoOGalerii()
 {
 		string a, b;
-		if(czy_bilety_=1)
+		if (czy_bilety_=1)
 			a = "tak";
 		else a="nie";
-		if(czy_przewodnik_=1)
+		if (czy_przewodnik_=1)
 			b="tak";
 		else b="nie";
 		cout<<"\nGaleria ADA znajduje sie w miescie: "<<miejsce_galerii_<<"\nCzy sa jeszcze bilety: "<<a<<"\nCzy jest tam przewodnik: "<<b<<endl;
 }
-//-------------------------------------------
-Eksponat::Eksponat(){}
-Eksponat::~Eksponat(){}
+
 //-------------------------------------------
 void KatalogGalerii::wypiszKatalog()
 {
-		if(this->lista_poczatek == nullptr) {
+		if (lista_poczatek == nullptr) {
 				cout<<"\nLista jest pusta!";
 				return;
 		}
-		Eksponat* temp = this->lista_poczatek;
+		Eksponat* temp = lista_poczatek;
 		while(temp != nullptr)
 		{
-					cout<<"ID:                      "<<temp->id<<"\n"
-						<<"Tytul dziela:            "<<temp->tytul_dziela<<"\n"
-						<<"Imie autora:             "<<temp->imie_autora<<"\n"
-						<<"Nazwisko autora:         "<<temp->nazwisko_autora<<"\n"
-						<<"Narodowosc autora:       "<<temp->narodowosc_autora<<"\n"
-						<<"Rok powstania dziela:    "<<temp->data_wykonania<<"\n"
-						<<"Cena:                    "<<temp->cena_w_pln<<"\n"
-
-						<<"==========================================\n";
-				temp = temp->next;
+			temp->zapiszNaStrumien(cout);
+			cout << "\n==========================================\n\n";
+			temp = temp->next;
 		}
 }
 //------------------------------------------
@@ -174,33 +166,6 @@ void KatalogGalerii::dodaj(Eksponat* &w_l, Eksponat* &w_k, int gdzie_dodac)
 		}
 }
 
-//-------------------------------------------
-void KatalogGalerii::dodajEksponatBezposrednio(Eksponat* &w_l, Eksponat* &w_k, string id, string t, string i, string n, string nar, string data_wykonania, string cena_w_pln)
-{
-		Eksponat* wn = new Eksponat;
-		int id_int = atoi(id.c_str()); //konwersja string -> int
-		wn->id = id_int;
-		wn->tytul_dziela = t;
-		wn->imie_autora = i;
-		wn->nazwisko_autora = n;
-		wn->narodowosc_autora = nar;
-		int data_wykonania_int = atoi(data_wykonania.c_str()); //konwersja string -> int
-		wn->data_wykonania=data_wykonania_int;
-		int cena_w_pln_int = atoi(cena_w_pln.c_str());
-		wn->cena_w_pln=cena_w_pln_int;
-		//na koniec listy
-
-		wn->prev = w_k; //poprzedni Eksponat przed tym ktory dodalismy to w_k (obecny koniec listy)
-		wn->next = nullptr; // nastepny Eksponat to nullptr
-		if(w_k != nullptr) {
-				w_k->next = wn;
-		} else {
-				w_l = wn;
-		}
-		w_k = wn; //nowy eksponat koncowy
-		cout<<"Dodano rekord: "<<id<<", "<<t<<", "<<i<<", "<<n<<", "<<nar<<", "<<data_wykonania<<", "<<cena_w_pln<<"\n";
-		this->liczbaEksponatow++;
-}
 //-------------------------------------
 void KatalogGalerii::dodajNaPoczatek()
 {
@@ -213,18 +178,6 @@ void KatalogGalerii::dodajNaKoniec()
 		KatalogGalerii::dodaj(this->lista_poczatek, this->lista_koniec, 1);
 }
 
-//--------------------------------------
-Eksponat::Eksponat(int id_, string tytul_dziela_, string imie_autora_, string nazwisko_autora_, string narodowosc_autora_, int data_wykonania_, int cena_w_pln_)
-{
-		int id=id_;
-		tytul_dziela=tytul_dziela;
-		string imie_autora=imie_autora_;
-		string nazwisko_autora=nazwisko_autora_;
-		string narodowosc_autora=narodowosc_autora_;
-		int data_wykonania=data_wykonania_;
-		float cena_w_pln=cena_w_pln_;
-
-}
 //---------------------------------------
 KatalogGalerii::~KatalogGalerii()
 {
@@ -259,7 +212,6 @@ void KatalogGalerii::countLiczbaEksponatow()
 				}
 		}
 }
-
 
 //-----------------------------------------
 
@@ -386,7 +338,7 @@ void KatalogGalerii::zapiszKatalogDoPliku (int wyswietlKomunikat, int wyswietlKo
 										cout<<"Zapisano eksponat o ID = "<<temp->id<<"\n";
 								}
 								//zapis do pliku
-								temp->zapiszDoPliku(plik);
+								temp->zapiszNaStrumien(plik);
 								temp = temp->next;
 						}
 						plik.close();
@@ -409,112 +361,163 @@ void KatalogGalerii::zapiszKatalogDoPliku (int wyswietlKomunikat, int wyswietlKo
 
 void KatalogGalerii::wyczyscKatalogWPliku()
 {
-		fstream plik;
-		plik.open(this->URL_Baza, ios::out); //tryb nadpisania pliku
-		plik<<"";
-		plik.close();
-		saveAutoIncrement(); //zapis ID ostatnio dodanego rekordu
+	fstream plik;
+	plik.open(this->URL_Baza, ios::out); //tryb nadpisania pliku
+	plik<<"";
+	plik.close();
+	saveAutoIncrement(); //zapis ID ostatnio dodanego rekordu
 }
 
 
 //---------------------------------------
 void KatalogGalerii::skasujKatalog(int wyswietlKomunikat)
 {
-		if(this->lista_poczatek != nullptr)//czy lista nie jest pusta? jesli jest pusta -> nie tworz wskaznika
+	if(this->lista_poczatek != nullptr)//czy lista nie jest pusta? jesli jest pusta -> nie tworz wskaznika
+	{
+		Eksponat* temp = this->lista_poczatek;
+		int ID_delete; //id do skasowania
+		while(temp != nullptr)
 		{
-				Eksponat* temp = this->lista_poczatek;
-				int ID_delete; //id do skasowania
-				while(temp != nullptr)
-				{
-						ID_delete = temp->id; //ID przypisane do zmiennej pomocniczej - przed usunieciem rekordu trzeba odczytac adres kolejnego Eksponatu
-						temp = temp->next;
-						usunEksponat(0, ID_delete); //rekord o danym ID usunieto
-				}
-				if(wyswietlKomunikat) {
-
-						cout<<"Usunieto wszystkie rekordy z pamieci programu.\n";
-				}
-		} else if(wyswietlKomunikat) {
-				cout<<"Baza danych w pamieci programu jest pusta. Nie ma co kasowac.\n";
+			ID_delete = temp->id; //ID przypisane do zmiennej pomocniczej - przed usunieciem rekordu trzeba odczytac adres kolejnego Eksponatu
+			temp = temp->next;
+			usunEksponat(0, ID_delete); //rekord o danym ID usunieto
 		}
 		if(wyswietlKomunikat) {
-				cout<<"Czy chcesz aby wyczyscic rowniez plik txt bazy danych?\n";
-				zapiszKatalogDoPliku(0);//brak wyswietlenia komunikatu z pytaniem o skasowanie baze txt
+			cout<<"Usunieto wszystkie rekordy z pamieci programu.\n";
 		}
+	} else if(wyswietlKomunikat) {
+		cout<<"Baza danych w pamieci programu jest pusta. Nie ma co kasowac.\n";
+	}
+	if(wyswietlKomunikat) {
+		cout<<"Czy chcesz aby wyczyscic rowniez plik txt bazy danych?\n";
+		zapiszKatalogDoPliku(0);//brak wyswietlenia komunikatu z pytaniem o skasowanie baze txt
+	}
 }
 
 //------------------------------------------------
+
 void KatalogGalerii::wczytajKatalogZPliku(bool komunikat, bool czy_kasowac)
 {
-		bool zaladuj_baze;
-		if (komunikat == 1) //wyswietl komunikat z pytaniem czy zaladowac baze
-		{
-				cout<<"Czy chcesz wczytac baze danych z pliku do pamieci programu?\n"
-						<<"(Baza zawarta w pamieci programu zostanie nadpisana baza z pliku)\n"
-						<<"1 - Wczytaj baze z pliku\n"
-						<<"2 - Anuluj.\n";
-				char nawigacja_dodaj;
-				do {
-						nawigacja_dodaj = _getch();
-				} while(nawigacja_dodaj != '1' && nawigacja_dodaj != '2');
-				if(nawigacja_dodaj == '1') {
-						zaladuj_baze = 1;
-						cout << "Wczytano.\n";
-				} else {
-						zaladuj_baze = 0;
-						cout << "Anulowano.\n";
-				}
-		} else { //brak komunikatu, baza ladowana automatycznie
-				zaladuj_baze = true;
+	bool zaladuj_baze;
+	if (komunikat == 1) //wyswietl komunikat z pytaniem czy zaladowac baze
+	{
+		cout<<"Czy chcesz wczytac baze danych z pliku do pamieci programu?\n"
+				<<"(Baza zawarta w pamieci programu zostanie nadpisana baza z pliku)\n"
+				<<"1 - Wczytaj baze z pliku\n"
+				<<"2 - Anuluj.\n";
+		char nawigacja_dodaj;
+		do {
+				nawigacja_dodaj = _getch();
+		} while(nawigacja_dodaj != '1' && nawigacja_dodaj != '2');
+		if(nawigacja_dodaj == '1') {
+				zaladuj_baze = 1;
+				cout << "Wczytano.\n";
+		} else {
+				zaladuj_baze = 0;
+				cout << "Anulowano.\n";
 		}
-		if(!zaladuj_baze)
-				return;
-		//skasowanie obecnej bazy w pamieci programu
-		//jesli baza ladowana przy pierwszym uruchomieniu programu -> nie uruchamiana jest funkcji kasujaca
-		if(czy_kasowac == 1) { //true = uruchom funkcje kasujaca baze
-				skasujKatalog();
-		}
-		// odczyt bazy
-		ifstream ifile(this->URL_Baza);
-		string tab[7]; //tablica zawierajaca 7 wierszy z kazdym polem informacji z bazy txt
-		string wiersz;
-		int l=1; //liczba linii
-		while(!ifile.eof()) {
-				getline(ifile,wiersz);
-				if(wiersz!="")
-				{
-						if(l%7==0) {
-								tab[6] = wiersz;
-						} else if(l%6==0) {
-								tab[5] = wiersz;
-						} else if(l%5==0) {
-								tab[4] = wiersz;
-						} else if(l%4==0) {
-								tab[3] = wiersz;
-						} else if(l%3==0) {
-								tab[2] = wiersz;
-						} else if(l%2==0) {
-								tab[1] = wiersz;
-						} else if(l%1==0) {
-								tab[0] = wiersz;
-						}
-				}
-				if (l % 7 == 0) {
-						dodajEksponatBezposrednio(this->lista_poczatek, this->lista_koniec, tab[0],tab[1],tab[2],tab[3],tab[4],tab[5],tab[6]);
-						l=0; //reset licznika
-				}
-				l++;
-		}
-		ifile.close();
+	} else { //brak komunikatu, baza ladowana automatycznie
+			zaladuj_baze = true;
+	}
+	if(!zaladuj_baze)
+			return;
+	//skasowanie obecnej bazy w pamieci programu
+	//jesli baza ladowana przy pierwszym uruchomieniu programu -> nie uruchamiana jest funkcji kasujaca
+	if(czy_kasowac == 1) { //true = uruchom funkcje kasujaca baze
+			skasujKatalog();
+	}
+	// odczyt bazy
+	ifstream ifile(this->URL_Baza);
+	dodajEksponatyBezposrednio(ifile);
+	ifile.close();
 }
 
-//------------------
-
-void Eksponat::wczytajDaneEksponatuZPliku(ifstream& f) {
-	;
+//-------------------------------------------
+void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
+{
+	Eksponat* wn = nullptr;
+	string wiersz;
+	while (!file.eof()) {
+		while (!file.eof() && wiersz == "")
+			getline(file, wiersz);
+		if (file.eof()) break;
+		string typ;
+		getline(file, typ);
+		if (typ == "eksponat") {
+			wn = new Eksponat();
+		} else if (typ == "obraz") {
+			wn = new Obraz();
+		} else if (typ == "fotografia") {
+			wn = new Fotografia();
+		} else if (typ == "rzezba") {
+			wn = new Rzezba();
+		} else {
+			//TODO nieznany identyfikator
+			continue;
+		}
+		wn->wczytajStrumien(file);
+		// wstawianie do listy
+		wn->prev = lista_koniec; //poprzedni Eksponat przed tym ktory dodalismy to w_k (obecny koniec listy)
+		wn->next = nullptr; // nastepny Eksponat to nullptr
+		if (lista_koniec != nullptr) {
+				lista_koniec->next = wn;
+		} else {
+				lista_poczatek = wn;
+		}
+		lista_koniec = wn; //nowy eksponat koncowy
+		cout << "Dodano rekord: "
+			<< wn->id << ", "
+			<< wn->tytul_dziela << ", "
+			<< wn->imie_autora << ", "
+			<< wn->nazwisko_autora <<", "
+			<< wn->narodowosc_autora << ", "
+			<< wn->data_wykonania << ", "
+			<< wn->cena_w_pln << "\n";
+		this->liczbaEksponatow++;
+	}
+}
+//-------------------------------------------
+int Eksponat::fromString(string s) {
+	int result = 0;
+	stringstream ss(s);
+	ss >> result;
+	return result;
 }
 
-void Eksponat::zapiszDoPliku(ofstream& f) const {
+//------------------ konstruktory
+Eksponat::Eksponat() {}
+
+Obraz::Obraz() {}
+
+Fotografia::Fotografia() {}
+
+Rzezba::Rzezba() {}
+
+//--------------------------------------
+Eksponat::Eksponat(int id_, string tytul_dziela_, string imie_autora_, string nazwisko_autora_, string narodowosc_autora_, int data_wykonania_, int cena_w_pln_)
+{
+		id = id_;
+		tytul_dziela = tytul_dziela_;
+		imie_autora = imie_autora_;
+		nazwisko_autora = nazwisko_autora_;
+		narodowosc_autora = narodowosc_autora_;
+		data_wykonania = data_wykonania_;
+		cena_w_pln = cena_w_pln_;
+}
+
+//------------------ destruktory
+Eksponat::~Eksponat(){}
+
+Obraz::~Obraz() {}
+
+Fotografia::~Fotografia() {}
+
+Rzezba::~Rzezba() {}
+
+//------------------ ZAPIS <<<<<<<<<<<
+
+void Eksponat::zapiszNaStrumien(ostream& f) const {
+	f << czymJestes() << endl;
 	f << id << endl;
 	f << imie_autora << endl;
 	f << nazwisko_autora << endl;
@@ -524,31 +527,154 @@ void Eksponat::zapiszDoPliku(ofstream& f) const {
 	f << cena_w_pln << endl;
 }
 
-void Eksponat::wczytajZPliku(ifstream& f) {
+void Obraz::zapiszNaStrumien(ostream& f) const {
+	f << czymJestes() << endl;
+	f << id << endl;
+	f << imie_autora << endl;
+	f << nazwisko_autora << endl;
+	f << tytul_dziela << endl;
+	f << narodowosc_autora << endl;
+	f << data_wykonania << endl;
+	f << cena_w_pln << endl;
+	f << uzyta_technika<< endl;
+	f << uzyta_farba << endl;
+	f << rodzaj_plotna << endl;
+	f << wysokosc_obrazu << endl;
+	f << szerokosc_obrazu << endl;
+}
+
+void Fotografia::zapiszNaStrumien(ostream& f) const {
+	f << czymJestes() << endl;
+	f << id << endl;
+	f << imie_autora << endl;
+	f << nazwisko_autora << endl;
+	f << tytul_dziela << endl;
+	f << narodowosc_autora << endl;
+	f << data_wykonania << endl;
+	f << cena_w_pln << endl;
+	f << typ_fotografii << endl;
+	f << uzyty_aparat << endl;
+	f << miejsce_wykonania << endl;
+	f << wysokosc_fotografii << endl;
+	f << szerokosc_fotografii << endl;
+}
+
+void Rzezba::zapiszNaStrumien(ostream& f) const {
+	f << czymJestes() << endl;
+	f << id << endl;
+	f << imie_autora << endl;
+	f << nazwisko_autora << endl;
+	f << tytul_dziela << endl;
+	f << narodowosc_autora << endl;
+	f << data_wykonania << endl;
+	f << cena_w_pln << endl;
+	f << rodzaj_rzezby << endl;
+	f << material << endl;
+	f << miejsce_wykonania << endl;
+	f << wysokosc_rzezby << endl;
+	f << glebokosc_rzezby << endl;
+}
+
+//------------------ ODCZYT >>>>>>>>>>>
+
+void Eksponat::wczytajDaneEksponatuZPliku(istream& f) {
+	string wiersz;
+	int linii = 1; //liczba linii
+	while (linii <= 7) {
+		getline(f, wiersz);
+		if (wiersz == "")
+			continue;
+		switch (linii) {
+		case 1 : id = fromString(wiersz); ++linii; break;
+		case 2 : tytul_dziela = wiersz; ++linii; break;
+		case 3 : imie_autora = wiersz; ++linii; break;
+		case 4 : nazwisko_autora = wiersz; ++linii; break;
+		case 5 : narodowosc_autora = wiersz; ++linii; break;
+		case 6 : data_wykonania = fromString(wiersz); ++linii; break;
+		case 7 : cena_w_pln = fromString(wiersz); ++linii; break;
+		default: continue; // TODO informacja -> pominieto linie z pliku
+		}
+	}
+}
+
+void Eksponat::wczytajStrumien(istream& f) {
 	wczytajDaneEksponatuZPliku(f);
 }
 
+void Obraz::wczytajStrumien(istream& f) {
+	wczytajDaneEksponatuZPliku(f);
+	string wiersz;
+	int linii = 1; //liczba linii
+	while (linii <= 5) {
+		getline(f, wiersz);
+		if (wiersz == "")
+			continue;
+		switch (linii) {
+		case 1 : uzyta_technika = wiersz; ++linii; break;
+		case 2 : uzyta_farba = wiersz; ++linii; break;
+		case 3 : rodzaj_plotna = wiersz; ++linii; break;
+		case 4 : wysokosc_obrazu = fromString(wiersz); ++linii; break;
+		case 5 : szerokosc_obrazu = fromString(wiersz); ++linii; break;
+		default: continue; // TODO informacja -> pominieto linie z pliku
+		}
+	}
+}
 
+void Fotografia::wczytajStrumien(istream& f) {
+	wczytajDaneEksponatuZPliku(f);
+	string wiersz;
+	int linii = 1; //liczba linii
+	while (linii <= 5) {
+		getline(f, wiersz);
+		if (wiersz == "")
+			continue;
+		switch (linii) {
+		case 1 : typ_fotografii = wiersz; ++linii; break;
+		case 2 : uzyty_aparat = wiersz; ++linii; break;
+		case 3 : miejsce_wykonania = wiersz; ++linii; break;
+		case 4 : wysokosc_fotografii = fromString(wiersz); ++linii; break;
+		case 5 : szerokosc_fotografii = fromString(wiersz); ++linii; break;
+		default: continue; // TODO informacja -> pominieto linie z pliku
+		}
+	}
+}
 
-
+void Rzezba::wczytajStrumien(istream& f) {
+	wczytajDaneEksponatuZPliku(f);
+	string wiersz;
+	int linii = 1; //liczba linii
+	while (linii <= 5) {
+		getline(f, wiersz);
+		if (wiersz == "")
+			continue;
+		switch (linii) {
+		case 1 : rodzaj_rzezby = wiersz; ++linii; break;
+		case 2 : material = wiersz; ++linii; break;
+		case 3 : miejsce_wykonania = wiersz; ++linii; break;
+		case 4 : wysokosc_rzezby = fromString(wiersz); ++linii; break;
+		case 5 : glebokosc_rzezby = fromString(wiersz); ++linii; break;
+		default: continue; // TODO informacja -> pominieto linie z pliku
+		}
+	}
+}
 
 //-------------------
-string Eksponat::czymJestes()
+string Eksponat::czymJestes() const
 {
 		return "eksponat";
 }
-//-------------------
-string Obraz::czymJestes()
+
+string Obraz::czymJestes() const
 {
 		return "obraz";
 }
-//-------------------
-string Fotografia::czymJestes()
+
+string Fotografia::czymJestes() const
 {
 		return "fotografia";
 }
-//-------------------
-string Rzezba::czymJestes()
+
+string Rzezba::czymJestes() const
 {
 		return "rzezba";
 }
@@ -557,119 +683,119 @@ string Rzezba::czymJestes()
 
 void KatalogGalerii::sortujEksponaty()
 {
-		countLiczbaEksponatow(); //liczy liczbe eksponatow
-		if (liczbaEksponatow == 0)
-				return;
-		cout<<"Wybierz kryterium wedlug ktorego posortowac baze:\n"
-				<<"1 - ID\n"
-				<<"2 - Nazwisko autora\n"
-				<<"3 - Cena dziela w polskich zlotych\n";
+	countLiczbaEksponatow(); //liczy liczbe eksponatow
+	if (liczbaEksponatow == 0)
+			return;
+	cout<<"Wybierz kryterium wedlug ktorego posortowac baze:\n"
+			<<"1 - ID\n"
+			<<"2 - Nazwisko autora\n"
+			<<"3 - Cena dziela w polskich zlotych\n";
 
-		char nawigacja;
-		do {
-				nawigacja = _getch();
-		} while(nawigacja != '1' && nawigacja != '2' && nawigacja != '3');
-		Eksponat* tab = new Eksponat[liczbaEksponatow];
-		Eksponat* temp = this->lista_poczatek;
-		int index=0; //tablica atrybutow
-		while(temp != nullptr)
-		{
-				tab[index] = *temp;
-				temp = temp->next;
-				index++;
-		}
-		if(nawigacja == '1') {
-				cout<<"Wybrano ID jako kryterium sortowania.\n";
-				QuickSort(tab, 0, liczbaEksponatow-1, "id", 1);
-		} else if(nawigacja == '2') {
-				cout<<"Wybrano nazwisko autora jako kryterium sortowania.\n";
-				QuickSort(tab, 0, liczbaEksponatow-1, "nazwisko autora", 1);
-		} else if(nawigacja == '3') {
-				cout<<"Wybrano cene jako kryterium sortowania.\n";
-				QuickSort(tab, 0, liczbaEksponatow-1, "cena", 1);
-		}
-		//posortowane wyniki:
-		for(int i=0; i<liczbaEksponatow; i++)
-		{
-				cout<<"ID:                      "<<tab[i].id<<"\n";
-				cout<<"Tytul dziela:            "<<tab[i].tytul_dziela<<"\n";
-				cout<<"Imie:                    "<<tab[i].imie_autora<<"\n";
-				cout<<"Nazwisko autora:         "<<tab[i].nazwisko_autora<<"\n";
-				cout<<"Narodowosc autora:       "<<tab[i].narodowosc_autora<<"\n";
-				cout<<"Data wykonanania:        "<<tab[i].data_wykonania<<"\n";
-				cout<<"Cena w PLN:              "<<tab[i].cena_w_pln<<"\n";
-				cout<<"==========================================\n";
-		}
+	char nawigacja;
+	do {
+			nawigacja = _getch();
+	} while(nawigacja != '1' && nawigacja != '2' && nawigacja != '3');
+	Eksponat* tab = new Eksponat[liczbaEksponatow];
+	Eksponat* temp = this->lista_poczatek;
+	int index=0; //tablica atrybutow
+	while(temp != nullptr)
+	{
+			tab[index] = *temp;
+			temp = temp->next;
+			index++;
+	}
+	if(nawigacja == '1') {
+			cout<<"Wybrano ID jako kryterium sortowania.\n";
+			QuickSort(tab, 0, liczbaEksponatow-1, "id", 1);
+	} else if(nawigacja == '2') {
+			cout<<"Wybrano nazwisko autora jako kryterium sortowania.\n";
+			QuickSort(tab, 0, liczbaEksponatow-1, "nazwisko autora", 1);
+	} else if(nawigacja == '3') {
+			cout<<"Wybrano cene jako kryterium sortowania.\n";
+			QuickSort(tab, 0, liczbaEksponatow-1, "cena", 1);
+	}
+	//posortowane wyniki:
+	for(int i=0; i<liczbaEksponatow; i++)
+	{
+		cout<<"ID:                      "<<tab[i].id<<"\n";
+		cout<<"Tytul dziela:            "<<tab[i].tytul_dziela<<"\n";
+		cout<<"Imie:                    "<<tab[i].imie_autora<<"\n";
+		cout<<"Nazwisko autora:         "<<tab[i].nazwisko_autora<<"\n";
+		cout<<"Narodowosc autora:       "<<tab[i].narodowosc_autora<<"\n";
+		cout<<"Data wykonanania:        "<<tab[i].data_wykonania<<"\n";
+		cout<<"Cena w PLN:              "<<tab[i].cena_w_pln<<"\n";
+		cout<<"==========================================\n";
+	}
 }
 
 //----------------------------------------------
 
 void KatalogGalerii::QuickSort(Eksponat t[], int p, int k, string co_sortowac, int kolejnosc)
 {
-		static char typ_kolejnosci;
-		if(kolejnosc) {//sposob prezentacji wynikow
-				cout<<"Wybierz sposob wyswietlenia posortowanych danych:\n"
-						<<"1 - ASC (rosnaco)\n"
-						<<"2 - DESC(malejaco)\n";
-				do {
-						typ_kolejnosci = _getch();
-				} while(typ_kolejnosci != '1' && typ_kolejnosci != '2');
-		}
-		int i, j, pivot;
-		string pivot_s; //
-		i = p;
-		j = k;
+	static char typ_kolejnosci;
+	if(kolejnosc) {//sposob prezentacji wynikow
+		cout<<"Wybierz sposob wyswietlenia posortowanych danych:\n"
+				<<"1 - ASC (rosnaco)\n"
+				<<"2 - DESC(malejaco)\n";
+		do {
+				typ_kolejnosci = _getch();
+		} while(typ_kolejnosci != '1' && typ_kolejnosci != '2');
+	}
+	int i, j, pivot;
+	string pivot_s; //
+	i = p;
+	j = k;
+	if(co_sortowac == "id") {
+			pivot = t[p].id; //punkt podzialu
+	} else if(co_sortowac == "cena") {
+			pivot = t[p].cena_w_pln;
+	} else if(co_sortowac == "nazwisko autora"){
+					pivot_s = t[p].nazwisko_autora;
+	}
+
+	while(i < j)
+	{
 		if(co_sortowac == "id") {
-				pivot = t[p].id; //punkt podzialu
+			if(typ_kolejnosci=='1') {
+					while(t[i].id<pivot) i++;
+					while(t[j].id>pivot) j--;
+			} else {
+					while(t[i].id>pivot) i++;
+					while(t[j].id<pivot) j--;
+			}
 		} else if(co_sortowac == "cena") {
-				pivot = t[p].cena_w_pln;
-		} else if(co_sortowac == "nazwisko autora"){
-						pivot_s = t[p].nazwisko_autora;
+			if(typ_kolejnosci=='1') {
+					while(t[i].cena_w_pln<pivot) i++;
+					while(t[j].cena_w_pln>pivot) j--;
+			} else {
+					while(t[i].cena_w_pln>pivot) i++;
+					while(t[j].cena_w_pln<pivot) j--;
+			}
+		} else if(co_sortowac == "nazwisko autora") {
+			if(typ_kolejnosci=='1') {
+					while(t[i].nazwisko_autora<pivot_s) i++;
+					while(t[j].nazwisko_autora>pivot_s) j--;
+			} else {
+					while(t[i].nazwisko_autora>pivot_s) i++;
+					while(t[j].nazwisko_autora<pivot_s) j--;
+			}
 		}
 
-		while(i < j)
-				{
-				if(co_sortowac == "id") {
-						if(typ_kolejnosci=='1') {
-								while(t[i].id<pivot) i++;
-								while(t[j].id>pivot) j--;
-						} else {
-								while(t[i].id>pivot) i++;
-								while(t[j].id<pivot) j--;
-						}
-				} else if(co_sortowac == "cena") {
-						if(typ_kolejnosci=='1') {
-								while(t[i].cena_w_pln<pivot) i++;
-								while(t[j].cena_w_pln>pivot) j--;
-						} else {
-								while(t[i].cena_w_pln>pivot) i++;
-								while(t[j].cena_w_pln<pivot) j--;
-						}
-				} else if(co_sortowac == "nazwisko autora") {
-						if(typ_kolejnosci=='1') {
-								while(t[i].nazwisko_autora<pivot_s) i++;
-								while(t[j].nazwisko_autora>pivot_s) j--;
-						} else {
-								while(t[i].nazwisko_autora>pivot_s) i++;
-								while(t[j].nazwisko_autora<pivot_s) j--;
-						}
-				}
-
-				if(i <= j) {
-					Eksponat wtemp;//zmienna pomocnicza
-					wtemp = t[i];
-					t[i] = t[j];
-					t[j] = wtemp;
-					i++;
-					j--; 
-				}
+		if(i <= j) {
+			Eksponat wtemp;//zmienna pomocnicza
+			wtemp = t[i];
+			t[i] = t[j];
+			t[j] = wtemp;
+			i++;
+			j--; 
 		}
-		if(i < k) {
-				QuickSort(t, i, k, co_sortowac, 0); //0 - brak pytania o typ sortowania
-		}
-		if(p < j) {
-				QuickSort(t, p, j, co_sortowac, 0);
-		}
+	}
+	if(i < k) {
+			QuickSort(t, i, k, co_sortowac, 0); //0 - brak pytania o typ sortowania
+	}
+	if(p < j) {
+			QuickSort(t, p, j, co_sortowac, 0);
+	}
 }
 
 

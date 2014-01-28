@@ -5,7 +5,6 @@
 #include <conio.h> // do funkcji getch()
 
 #include "galeria.h"
-#include "galeria.cpp"
 
 using namespace std;
 

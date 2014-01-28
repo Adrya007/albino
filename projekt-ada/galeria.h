@@ -11,28 +11,30 @@ using namespace std;
 class Eksponat {
 private:
 	bool czy_wystawiony;
-
 protected:
-	void wczytajDaneEksponatuZPliku(ifstream& f);
+	static int fromString(string s);
+	void wczytajDaneEksponatuZPliku(istream& f);
 public:
 	Eksponat* next;
 	Eksponat* prev;
+
 	int id;
+	string tytul_dziela;
 	string imie_autora;
 	string nazwisko_autora;
-	string tytul_dziela;
 	string narodowosc_autora;
 	int data_wykonania;
 	int cena_w_pln;
 
 	//----metody publiczne----
-	Eksponat();  //konstruktor
+	Eksponat();
 	Eksponat(int id, string tytul_dziela, string imie_autora, string nazwisko_autora, string narodowosc_autora, int data_wykonania, int cena_w_pln);
-	~Eksponat(); //destruktor
+	virtual ~Eksponat();
+
 	void dodaj(Eksponat* &, Eksponat* &, int);
-	virtual void zapiszDoPliku(ofstream& f) const;
-	virtual void wczytajZPliku(ifstream& f);
-	virtual string czymJestes();
+	virtual void zapiszNaStrumien(ostream& f) const;
+	virtual void wczytajStrumien(istream& f);
+	virtual string czymJestes() const;
 };
 
 class KatalogGalerii {
@@ -50,8 +52,7 @@ private:
 		string IntToString(int);
 
 public:
-
-		void dodajEksponatBezposrednio(Eksponat* &, Eksponat* &, string, string, string, string, string, string, string);
+		void dodajEksponatyBezposrednio(ifstream& f);
 		KatalogGalerii(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik);
 		void init(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik);
 		~KatalogGalerii();
@@ -76,16 +77,18 @@ public:
 
 class Obraz: public virtual Eksponat{
 public:
-		string rodzaj_plotna;
-		string uzyta_farba;
-		float wysokosc_obrazu;
-		float szerokosc_obrazu;
 		string uzyta_technika;
+		string uzyta_farba;
+		string rodzaj_plotna;
+		int wysokosc_obrazu;
+		int szerokosc_obrazu;
 
 		//----metody publiczne----
 		Obraz();
 		~Obraz();
-		string czymJestes();
+		virtual void zapiszNaStrumien(ostream& f) const;
+		virtual void wczytajStrumien(istream& f);
+		string czymJestes() const;
 
 };
 
@@ -93,26 +96,30 @@ class Fotografia: public virtual Eksponat{
 public:
 		string typ_fotografii;
 		string uzyty_aparat;
-		float wysokosc_fotografii;
-		float szerokosc_fotografii;
 		string miejsce_wykonania;
+		int wysokosc_fotografii;
+		int szerokosc_fotografii;
 
 		//----metody publiczne----
 		Fotografia();
 		~Fotografia();
-		string czymJestes();
+		virtual void zapiszNaStrumien(ostream& f) const;
+		virtual void wczytajStrumien(istream& f);
+		string czymJestes() const;
 };
 
 class Rzezba: public virtual Eksponat{
 public:
-		string material;
 		string rodzaj_rzezby;
-		float wysokosc_rzezby;
-		float glebokosc_rzezby;
+		string material;
 		string miejsce_wykonania;
+		int wysokosc_rzezby;
+		int glebokosc_rzezby;
 
 		//----metody publiczne----
 		Rzezba();
 		~Rzezba();
-		string czymJestes();
+		virtual void zapiszNaStrumien(ostream& f) const;
+		virtual void wczytajStrumien(istream& f);
+		string czymJestes() const;
 };
