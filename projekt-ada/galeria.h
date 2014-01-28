@@ -1,8 +1,5 @@
-//#pragma once
-
 #include <string>
 #include <fstream>
-#include <conio.h>
 #include <stdlib.h>
 #include <iostream>
 #include <cstdlib>
@@ -21,27 +18,20 @@ private:
 public:
         Eksponat* next;
         Eksponat* prev;
-        string tytul_dziela;
-        int data_wykonania;
-        string nazwisko_autora;
-        string imie_autora;
-        string narodowosc_autora;
-        int cena_w_pln;
         int id;
-
+        string imie_autora;
+        string nazwisko_autora;
+        string tytul_dziela;
+        string narodowosc_autora;
+        int data_wykonania;
+        int cena_w_pln;
 
         //----metody publiczne----
         Eksponat();  //konstruktor
-        Eksponat(int tytul_dziela, int data_wykonania, string nazwisko_autora, string imie_autora, string narodowosc_autora, float cena_w_pln, int id);
+        Eksponat(int id, string tytul_dziela, string imie_autora, string nazwisko_autora, string narodowosc_autora, int data_wykonania, int cena_w_pln);
         ~Eksponat(); //destruktor
-
-//    void wypiszEksponat();
-
-
-
         void dodaj(Eksponat* &, Eksponat* &, int);
         virtual string czymJestes();
-
 };
 
 class KatalogGalerii {
@@ -56,10 +46,10 @@ private:
         string miejsce_galerii_;
         bool czy_bilety_;
         bool czy_przewodnik_;
+        string IntToString(int);
 
 public:
 
-        //KatalogGalerii();
         void dodajEksponatBezposrednio(Eksponat* &, Eksponat* &, string, string, string, string, string, string, string);
         KatalogGalerii(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik);
         void init(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik);
@@ -95,6 +85,7 @@ public:
         Obraz();
         ~Obraz();
         string czymJestes();
+
 };
 
 class Fotografia: public virtual Eksponat{

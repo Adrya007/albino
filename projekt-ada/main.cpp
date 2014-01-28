@@ -2,35 +2,36 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
-#include <conio.h> // zawiera funkcja getch()
-#include <ctime> // time()
-#include <Windows.h> //zawiera funkcje SetConsoleTextAttribute
+#include <conio.h> // do funkcji getch()
+
 #include "galeria.h"
+#include "galeria.cpp"
 
 using namespace std;
 
-//deklaracja funkcji globalnych
-void color(int);
-void clear_screen();
-void menu_glowne();
+//funkcje globalne:
+//void kolorek(int);
+void wyswietlajka();
+void wybierajka();
 
-static KatalogGalerii db("Warszawa", 1, 1); //tworze obiekt db katalogu
+KatalogGalerii db("Warszawa", 1, 1); //stworzenie obiektu db katalogu galerii
 
 //------------
 int main( int argc, char* argv[] )
 {
         /*
-         *        ladujemy baze danych przy uruchomieniu programu,
-         *        0 - nie wyswietlamy komunikatu czy wczytac baze,
-         *        0 - nie kasujemy baze, bo przy pierwszym ladowaniu baza jest juz pusta
+                 katalog eksponatow zostaje zaladowany przy starcie programu
+                 0 - brak komunikatu czy wczytac baze,
+                 0 - baza nie ulega skasowaniu
          */
+        system("COLOR 1e");
         db.wczytajKatalogZPliku(0, 0);
-        menu_glowne();
+        wybierajka();
         db.saveAutoIncrement(); //zapisanie wartosci ostatnio dodanego ID
         return 0;
 }
-
-void color(int i) { // funkcja wlacza kolorowanie napisow drukowanych przez cout
+/*
+void color(int i) { // funkcja wlacza kolorowanie // wylaczam - program mial byc uniwersalny, funkcja dziala tylko pod Windowsem
         if (i==1) {
                 // czerwony
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
@@ -47,67 +48,46 @@ void color(int i) { // funkcja wlacza kolorowanie napisow drukowanych przez cout
                 // czarno na bialym
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_INTENSITY | FOREGROUND_INTENSITY | BACKGROUND_GREEN | BACKGROUND_BLUE);
         } else {
-                // domyslny kolor tekstu w konsoli
+                //
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         }
-}
+}*/
 
 //--------------
 
-void clear_screen()
+void wyswietlajka()
 {
 
-        //system("cls");
+       // system("COLOR 1e");
         cout<<"\n\n====== Katalog galerii sztuki 'ADA' ======\n";
         db.returnAutoIncrementAndLiczbaRekordow();
-        color(1);
+        cout<<"\n";
         cout<<"1";
-        color(0);
         cout<<" - wczytaj katalog z pliku, \n";
-        color(1);
         cout<<"2";
-        color(0);
-        cout<<" - zapisz katalog, \n";
-        color(1);
+        cout<<" - zapisz katalog,\n";
         cout<<"3";
-        color(0);
         cout<<" - skasuj katalog,\n";
-        color(3);
         cout<<"4";
-        color(0);
-        cout<<" - dodaj nowy eksponat, \n";
-        color(3);
+        cout<<" - dodaj nowy eksponat,\n";
         cout<<"5";
-        color(0);
-        cout<<" - usun eksponat, \n";
-        color(3);
+        cout<<" - usun eksponat,\n";
         cout<<"6";
-        color(0);
-        cout<<" - edytuj eksponat\n";
-        color(4);
+        cout<<" - edytuj eksponat,\n";
         cout<<"7";
-        color(0);
-        cout<<" - wyswietl eksponaty, \n";
-        color(4);
+        cout<<" - wyswietl eksponaty,\n";
         cout<<"8";
-        color(0);
-        cout<<" - posortuj eksponaty, \n";
-        color(4);
+        cout<<" - posortuj eksponaty,\n";
         cout<<"9";
-        color(0);
-        cout<<" - wyszukaj eksponat\n";
-        color(4);
-        cout<<"10";
-        color(0);
-        cout<<" - wyswietl info o galerii\n";
-        color(2);
+        cout<<" - wyszukaj eksponat,\n";
+        cout<<"i";
+        cout<<" - wyswietl informacje o galerii sztuki 'ADA',\n";
         cout<<"k";
-        color(0);
-        cout<<" - koniec\n";
+        cout<<" - koniec.\n";
 }
 
-void menu_glowne() {
-clear_screen();
+void wybierajka() {
+wyswietlajka();
 char nawigacja;
 bool wybrano_poprawny_klawisz = 0;
 bool exit = 0;
@@ -115,7 +95,7 @@ bool exit = 0;
                 nawigacja = _getch(); // pobiera znak tak dlugo az zostana wcisniete strzalki gora/dol lub enter
                 switch(nawigacja) {
                         case '1':
-                                db.wczytajKatalogZPliku(1, 1);//1-wyswietl komunikat z pytaniem czy zaladowac baze, 1-uruchom funkcje czyszczaca baze przed zaladowaniem rekordow z pliku
+                                db.wczytajKatalogZPliku(1, 1);//1 - komunikat z pytaniem czy zaladowac baze, 1 - uruchom funkcje czyszczaca baze przed zaladowaniem rekordow z pliku
                                 wybrano_poprawny_klawisz = 1;
                                 break;
                         case '2':
@@ -123,8 +103,8 @@ bool exit = 0;
                                 wybrano_poprawny_klawisz = 1;
                                 break;
                         case '3':
-                                cout<<"Czy aby na pewno chcesz skasowac baze danych? Wybierz dzialanie\n"
-                                        <<"1 - Skasuj baze danych zawarta w pamieci programu\n"
+                                cout<<"Czy na pewno chcesz skasowac baze danych?\n"
+                                        <<"1 - Skasuj baze danych w pamieci programu\n"
                                         <<"2 - Skasuj tylko baze danych w pliku txt\n"
                                         <<"3 - Anuluj\n";
                                 char nawigacja_kasuj;
@@ -132,19 +112,19 @@ bool exit = 0;
                                         nawigacja_kasuj = _getch();
                                 } while(nawigacja_kasuj != '1' && nawigacja_kasuj != '2' && nawigacja_kasuj != '3');
                                 if(nawigacja_kasuj == '1') {
-                                        db.skasujKatalog(1);//wyswietlamy komunikaty o udanym skasowaniu oraz zapytanie czy zapisac rowniez zmiany w bazie txt
+                                        db.skasujKatalog(1);//komunikat o udanym skasowaniu + zapytanie czy zapisac rowniez zmiany w bazie txt
                                 } else if(nawigacja_kasuj == '2') {
                                         db.wyczyscKatalogWPliku();
-                                        cout<<"Baza danych w pliku txt zostala wyczyszczona!";
+                                        cout<<"Baza danych w pliku txt zostala wyczyszczona.";
                                 } else {
-                                        cout<<"Anulowano kasowanie bazy...";
+                                        cout<<"Anulowano kasowanie bazy.";
                                 }
                                 wybrano_poprawny_klawisz = 1;
                                 break;
                         case '4':
-                                cout<<"1 - Dodaj element na poczatek listy\n"
-                                        <<"2 - Dodaj element na koniec listy\n"
-                                        <<"3 - Anuluj\n";
+                                cout<<"1 - Dodaj eksponat na poczatek listy\n"
+                                        <<"2 - Dodaj eksponat na koniec listy\n"
+                                        <<"3 - Anuluj.\n";
                                 char nawigacja_dodaj;
                                 do {
                                         nawigacja_dodaj = _getch();
@@ -153,17 +133,18 @@ bool exit = 0;
                                         db.dodajNaPoczatek();
                                 } else if(nawigacja_dodaj == '2') {
                                         db.dodajNaKoniec();
-                                } else cout<<"Anulowano...\n";
+                                } else cout<<"Anulowano.\n";
                                 wybrano_poprawny_klawisz = 1;
                                 break;
                         case '5':
                                 db.usunEksponat();
                                 wybrano_poprawny_klawisz = 1;
                                 break;
-                        /*case '6':
-                                db.edytujEksponat();
+                        case '6':
+                                cout<<"\nUsluga edytowania istniejacego eksponatu w trakcie realizacji...\n";
+                               /* db.edytujEksponat();*/
                                 wybrano_poprawny_klawisz = 1;
-                                break;*/
+                                break;
                         case '7':
                                 db.wypiszKatalog();
                                 wybrano_poprawny_klawisz = 1;
@@ -172,13 +153,18 @@ bool exit = 0;
                                 db.sortujEksponaty();
                                 wybrano_poprawny_klawisz = 1;
                                 break;
-                        /*case '9':
-                                db.WyszukajRekordy();
+                        case '9':
+                                cout<<"\nUsluga wyszukiwania istniejacego eksponatu w trakcie realizacji...\n";
+                                /*db.WyszukajRekordy();*/
                                 wybrano_poprawny_klawisz = 1;
-                                break;*/
+                                break;
+                        case 'i':
+                                db.wypiszInfoOGalerii();
+                                wybrano_poprawny_klawisz = 1;
+                                break;
                         case 'k':
-                                cout<<"UWAGA!! Zanim wyjdziesz z programu\n ";
-                                db.zapiszKatalogDoPliku(1,0);//0 oznaczacza ze nie pytamy sie czy zaladowac do pamieci programu zaktualizowana baze
+                                cout<<"\nZanim wyjdziesz z programu:\n ";
+                                db.zapiszKatalogDoPliku(1,0);//0 - brak pytania czy zaladowac do pamieci programu zaktualizowana baze
                                 wybrano_poprawny_klawisz = 1;
                                 exit = 1;
                                 break;
@@ -187,6 +173,6 @@ bool exit = 0;
         if(exit!=1) {
                 cout<<"\n\n";
                 system("pause");
-                menu_glowne();
+                wybierajka();
         }
 }
