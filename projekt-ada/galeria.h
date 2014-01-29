@@ -13,6 +13,7 @@ protected:
 	static int fromString(string s);
 	void wczytajDaneEksponatuZPliku(istream& f);
 	void dodajPodstawowe();
+	void zapiszPodstawowe(ostream& s, bool tytuluj) const;
 	static string getStringFromConsole(string message);
 	static int getIntFromConsole(string message);
 public:
