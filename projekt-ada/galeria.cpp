@@ -417,11 +417,12 @@ void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
 {
 	Eksponat* wn = nullptr;
 	string typ;
+	getline(file, typ);
 	while (!file.eof()) {
 		while (!file.eof() && typ == "")
 			getline(file, typ);
-		if (file.eof()) break;
-		getline(file, typ);
+		if (file.eof())
+			break;
 		if (typ == "eksponat") {
 			wn = new Eksponat();
 		} else if (typ == "obraz") {
