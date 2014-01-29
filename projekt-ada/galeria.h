@@ -12,6 +12,9 @@ private:
 protected:
 	static int fromString(string s);
 	void wczytajDaneEksponatuZPliku(istream& f);
+	void dodajPodstawowe();
+	static string getStringFromConsole(string message);
+	static int getIntFromConsole(string message);
 public:
 	Eksponat* next;
 	Eksponat* prev;
@@ -29,7 +32,7 @@ public:
 	Eksponat(int id, string tytul_dziela, string imie_autora, string nazwisko_autora, string narodowosc_autora, int data_wykonania, int cena_w_pln);
 	virtual ~Eksponat();
 
-	void dodaj(Eksponat* &, Eksponat* &, int);
+	virtual void dodaj();
 	virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
 	virtual void wczytajStrumien(istream& f);
 	virtual string czymJestes() const;
@@ -75,49 +78,54 @@ public:
 
 class Obraz: public virtual Eksponat{
 public:
-		string uzyta_technika;
-		string uzyta_farba;
-		string rodzaj_plotna;
-		int wysokosc_obrazu;
-		int szerokosc_obrazu;
+	string uzyta_technika;
+	string uzyta_farba;
+	string rodzaj_plotna;
+	int wysokosc_obrazu;
+	int szerokosc_obrazu;
 
-		//----metody publiczne----
-		Obraz();
-		~Obraz();
-		virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
-		virtual void wczytajStrumien(istream& f);
-		string czymJestes() const;
+	//----metody publiczne----
+	Obraz();
+	virtual ~Obraz();
 
+	virtual void dodaj();
+	virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
+	virtual void wczytajStrumien(istream& f);
+	string czymJestes() const;
 };
 
 class Fotografia: public virtual Eksponat{
 public:
-		string typ_fotografii;
-		string uzyty_aparat;
-		string miejsce_wykonania;
-		int wysokosc_fotografii;
-		int szerokosc_fotografii;
+	string typ_fotografii;
+	string uzyty_aparat;
+	string miejsce_wykonania;
+	int wysokosc_fotografii;
+	int szerokosc_fotografii;
 
-		//----metody publiczne----
-		Fotografia();
-		~Fotografia();
-		virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
-		virtual void wczytajStrumien(istream& f);
-		string czymJestes() const;
+	//----metody publiczne----
+	Fotografia();
+	virtual ~Fotografia();
+
+	virtual void dodaj();
+	virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
+	virtual void wczytajStrumien(istream& f);
+	string czymJestes() const;
 };
 
 class Rzezba: public virtual Eksponat{
 public:
-		string rodzaj_rzezby;
-		string material;
-		string miejsce_wykonania;
-		int wysokosc_rzezby;
-		int glebokosc_rzezby;
+	string rodzaj_rzezby;
+	string material;
+	string miejsce_wykonania;
+	int wysokosc_rzezby;
+	int glebokosc_rzezby;
 
-		//----metody publiczne----
-		Rzezba();
-		~Rzezba();
-		virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
-		virtual void wczytajStrumien(istream& f);
-		string czymJestes() const;
+	//----metody publiczne----
+	Rzezba();
+	virtual ~Rzezba();
+
+	virtual void dodaj();
+	virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
+	virtual void wczytajStrumien(istream& f);
+	string czymJestes() const;
 };

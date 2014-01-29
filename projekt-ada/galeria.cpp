@@ -74,93 +74,76 @@ void KatalogGalerii::wypiszKatalog()
 		}
 }
 //------------------------------------------
-// w_l - wskaznik 1wszego eksponatu na liscie
 
-// w_k - wskaznik konca listy
+string Eksponat::getStringFromConsole(string message) {
+	string line;
+	do {
+		cout << endl << message << endl;
+		getline(cin, line);
+	} while (line == "");
+	return line;
+}
 
-// gdzie_dodac == 1 na koniec listy, gdzie_dodac == 0 na poczatek
+int Eksponat::getIntFromConsole(string message) {
+	string line;
+	stringstream ss;
+	int num = 0;
+	do {
+		ss.str("");
+		ss.clear();
+		cout << endl << message << endl;
+		getline(cin, line);
+		ss << line;
+		ss >> num;
+	} while (ss.fail());
+	return num;
+}
 
 void KatalogGalerii::dodaj(bool dodajNaKoncu)
 {
-		Eksponat* wn = new Eksponat;
-		//++ wartosci zmiennych prywatnych
-		this->autoIncrement++;
-		this->liczbaEksponatow++;
-		wn->id = this->autoIncrement;
-		cout<<"\nPodaj imie autora: ";
-		getline(cin,wn->imie_autora);
-		while(wn->imie_autora == "") {
-				cout<<"\nPodano pusty ciag znakow. Podaj imie: ";
-				getline(cin,wn->imie_autora);
+	Eksponat* wn = nullptr;
+	string line;
+	bool ok;
+	do {
+	cout << "\nPodaj typ eksponatu (eksponat/obraz/fotografia/rzezba):\n";
+		ok = true;
+		getline(cin, line);
+		if (line == "eksponat")
+			wn = new Eksponat();
+		else if (line == "obraz")
+			wn = new Obraz();
+		else if (line == "fotografia")
+			wn = new Fotografia();
+		else if (line == "rzezba")
+			wn = new Rzezba();
+		else
+			ok = false;
+	} while (!ok);
+	wn->id = ++autoIncrement;
+	++liczbaEksponatow;
+	// magia dziedziczenia i funkcji wirtualnych
+	wn->dodaj();
+	if (dodajNaKoncu) {
+		wn->prev = lista_koniec; //obecny koniec listy
+		wn->next = nullptr; //nastepny element jest jeszcze nullptr - wlasnie jest dodawany ostatni element
+		if(lista_koniec != nullptr) {
+				lista_koniec->next = wn;
+		} else {
+				lista_poczatek = wn;
 		}
-		cout<<"\nPodaj nazwisko autora: ";
-		getline(cin,wn->nazwisko_autora);
-		while(wn->nazwisko_autora == "") {
-				cout<<"\nPodano pusty ciag znakow. Podaj nazwisko: ";
-				getline(cin,wn->nazwisko_autora);
+		lista_koniec = wn; //nowy element koncowy - wn (Wskaznik Nowy na element ktory wlasnie dodano)
+		cout<<"\nDodano na koniec listy!";
+	} else {
+		wn->prev = nullptr;
+		wn->next = lista_poczatek;
+		if(lista_poczatek != nullptr) {
+				lista_poczatek->prev = wn;
+		} else {
+				lista_koniec = wn;
 		}
-		cout<<"\nPodaj rok powstania dziela: ";
-		string data_wykonania;
-		int data_wykonania_int;
-		getline(cin,data_wykonania); //do stringa rok wykonania
-		data_wykonania_int = atoi(data_wykonania.c_str()); //konwersja stringa na int
-		while(data_wykonania == "" || data_wykonania_int == 0) {
-				if(data_wykonania=="") {//podano pusty ciag znakow
-						cout<<"\nPodano pusty rok. Podaj nowy rok wykonania dziela: ";
-				} else { //podano ciag znakow ktory zostal zamieniony na liczbe 0
-						cout<<"\nPodano ciag znakow zamiast roku liczbowego. Podaj nowy rok: ";
-				}
-				getline(cin,data_wykonania);
-				data_wykonania_int= atoi(data_wykonania.c_str());
-		}
-		wn->data_wykonania = data_wykonania_int;
-		cout<<"\nPodaj narodowosc autora: ";
-		getline(cin,wn->narodowosc_autora);
-		while(wn->narodowosc_autora == "") {
-				cout<<"\nPodano pusty ciag znakow. Podaj narodowosc: ";
-				getline(cin,wn->narodowosc_autora);
-		}
-		cout<<"\nPodaj tytul dziela: ";
-		getline(cin,wn->tytul_dziela);
-		while(wn->tytul_dziela == "") {
-				cout<<"\nPodano pusty ciag znakow. Podaj tytul: ";
-				getline(cin,wn->tytul_dziela);
-		}
-		cout<<"\nPodaj cene dziela: ";
-		string cena_w_pln;
-		int cena_w_pln_int;
-		getline(cin,cena_w_pln); //do stringa cena_w_pln
-		cena_w_pln_int = atoi(cena_w_pln.c_str()); //konwersja string -> int
-		while(cena_w_pln == "" || cena_w_pln_int== 0) {
-				if(cena_w_pln=="") {//pusty ciag znakow zamiast ceny
-						cout<<"\nPodano pusta cene. Podaj nowa: ";
-				} else { //podano ciag znakow ktory zostal zamieniony na liczbe 0
-						cout<<"\nPodano ciag znakow zamiast jednej liczby: ";
-				}
-				getline(cin,cena_w_pln);
-				cena_w_pln_int= atoi(cena_w_pln.c_str());
-		}
-		if (dodajNaKoncu) { //1 - na koniec listy
-				wn->prev = lista_koniec; //obecny koniec listy
-				wn->next = nullptr; //nastepny element jest jeszcze nullptr - wlasnie jest dodawany ostatni element
-				if(lista_koniec != nullptr) {
-						lista_koniec->next = wn;
-				} else {
-						lista_poczatek = wn;
-				}
-				lista_koniec = wn; //nowy element koncowy - wn (Wskaznik Nowy na element ktory wlasnie dodano)
-				cout<<"\nDodano na koniec listy!";
-		} else { //gdzie_dodac==0 to dodajemy na poczatek listy
-				wn->prev = nullptr;
-				wn->next = lista_poczatek;
-				if(lista_poczatek != nullptr) {
-						lista_poczatek->prev = wn;
-				} else {
-						lista_koniec = wn;
-				}
-				lista_poczatek = wn; //nowy poczatek listy
-				cout<<"\nDodano na poczatek listy!";
-		}
+		lista_poczatek = wn; //nowy poczatek listy
+		cout<<"\nDodano na poczatek listy!";
+	}
 }
 
 //-------------------------------------
@@ -505,6 +488,69 @@ Obraz::~Obraz() {}
 Fotografia::~Fotografia() {}
 
 Rzezba::~Rzezba() {}
+
+//------------------ dodawanie z konsoli
+
+void Eksponat::dodajPodstawowe() {
+	tytul_dziela = Eksponat::getStringFromConsole(
+		"Podaj tytul dziela:");
+	imie_autora = Eksponat::getStringFromConsole(
+		"Podaj imie autora:");
+	nazwisko_autora = Eksponat::getStringFromConsole(
+		"Podaj nazwisko autora:");
+	narodowosc_autora = Eksponat::getStringFromConsole(
+		"Podaj narodowosc autora:");
+	data_wykonania = Eksponat::getIntFromConsole(
+		"Podaj date wykonania dziela:");
+	cena_w_pln = Eksponat::getIntFromConsole(
+		"Podaj cene w pln dziela:");
+}
+
+void Eksponat::dodaj() {
+	dodajPodstawowe();
+}
+
+void Obraz::dodaj() {
+	dodajPodstawowe();
+	imie_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	nazwisko_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	narodowosc_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	data_wykonania = Eksponat::getIntFromConsole(
+		"Podaj :");
+	cena_w_pln = Eksponat::getIntFromConsole(
+		"Podaj :");
+}
+
+void Fotografia::dodaj() {
+	dodajPodstawowe();
+	imie_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	nazwisko_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	narodowosc_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	data_wykonania = Eksponat::getIntFromConsole(
+		"Podaj :");
+	cena_w_pln = Eksponat::getIntFromConsole(
+		"Podaj :");
+}
+
+void Rzezba::dodaj() {
+	dodajPodstawowe();
+	imie_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	nazwisko_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	narodowosc_autora = Eksponat::getStringFromConsole(
+		"Podaj :");
+	data_wykonania = Eksponat::getIntFromConsole(
+		"Podaj :");
+	cena_w_pln = Eksponat::getIntFromConsole(
+		"Podaj :");
+}
 
 //------------------ ZAPIS <<<<<<<<<<<
 
