@@ -512,43 +512,43 @@ void Eksponat::dodaj() {
 void Obraz::dodaj() {
 	dodajPodstawowe();
 	imie_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj imie autora obrazu:");
 	nazwisko_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj nazwisko autora:");
 	narodowosc_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj narodowosc autora:");
 	data_wykonania = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj date wykonania:");
 	cena_w_pln = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj cene obrazu:");
 }
 
 void Fotografia::dodaj() {
 	dodajPodstawowe();
 	imie_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj imie autora fotografii:");
 	nazwisko_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj nazwisko autora fotografii:");
 	narodowosc_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj narodowosc autora fotografii:");
 	data_wykonania = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj date wykonania:");
 	cena_w_pln = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj cene fotografii:");
 }
 
 void Rzezba::dodaj() {
 	dodajPodstawowe();
 	imie_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj imie autora rzezby:");
 	nazwisko_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj nazwisko autora:");
 	narodowosc_autora = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj narodowosc:");
 	data_wykonania = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj date wykonania:");
 	cena_w_pln = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj cene rzezby:");
 }
 
 //------------------ ZAPIS <<<<<<<<<<<
