@@ -416,12 +416,11 @@ void KatalogGalerii::wczytajKatalogZPliku(bool komunikat, bool czy_kasowac)
 void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
 {
 	Eksponat* wn = nullptr;
-	string wiersz;
+	string typ;
 	while (!file.eof()) {
-		while (!file.eof() && wiersz == "")
-			getline(file, wiersz);
+		while (!file.eof() && typ == "")
+			getline(file, typ);
 		if (file.eof()) break;
-		string typ;
 		getline(file, typ);
 		if (typ == "eksponat") {
 			wn = new Eksponat();
