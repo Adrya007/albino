@@ -14,7 +14,8 @@
 *.pyd
 
 # Visual trash
-
+*.ilk
+*.pdb
 *.sdf
 *.opensdf
 *.suo
