@@ -437,14 +437,13 @@ void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
 		}
 		wn->wczytajStrumien(file);
 		// wstawianie do listy
-		wn->prev = lista_koniec; //poprzedni Eksponat przed tym ktory dodalismy to w_k (obecny koniec listy)
-		wn->next = nullptr; // nastepny Eksponat to nullptr
-		if (lista_koniec != nullptr) {
-				lista_koniec->next = wn;
-		} else {
-				lista_poczatek = wn;
+		wn->prev = wn->next = nullptr;
+		if (lista_poczatek == nullptr && lista_koniec == nullptr)
+			lista_poczatek = lista_koniec = wn;
+		else {
+			wn->prev = lista_koniec;
+			lista_koniec->next = wn;
 		}
-		lista_koniec = wn; //nowy eksponat koncowy
 		cout << "\n>Dodano rekord:\n";
 		wn->zapiszNaStrumien(cout, true);
 		this->liczbaEksponatow++;
