@@ -510,44 +510,44 @@ void Eksponat::dodaj() {
 
 void Obraz::dodaj() {
 	dodajPodstawowe();
-	imie_autora = Eksponat::getStringFromConsole(
-		"Podaj imie autora obrazu:");
-	nazwisko_autora = Eksponat::getStringFromConsole(
-		"Podaj nazwisko autora:");
-	narodowosc_autora = Eksponat::getStringFromConsole(
-		"Podaj narodowosc autora:");
-	data_wykonania = Eksponat::getIntFromConsole(
-		"Podaj date wykonania:");
-	cena_w_pln = Eksponat::getIntFromConsole(
-		"Podaj cene obrazu:");
+	uzyta_technika = Eksponat::getStringFromConsole(
+		"Podaj :");
+	uzyta_farba = Eksponat::getStringFromConsole(
+		"Podaj :");
+	rodzaj_plotna = Eksponat::getStringFromConsole(
+		"Podaj :");
+	wysokosc_obrazu = Eksponat::getIntFromConsole(
+		"Podaj :");
+	szerokosc_obrazu = Eksponat::getIntFromConsole(
+		"Podaj :");
 }
 
 void Fotografia::dodaj() {
 	dodajPodstawowe();
-	imie_autora = Eksponat::getStringFromConsole(
-		"Podaj imie autora fotografii:");
-	nazwisko_autora = Eksponat::getStringFromConsole(
-		"Podaj nazwisko autora fotografii:");
-	narodowosc_autora = Eksponat::getStringFromConsole(
-		"Podaj narodowosc autora fotografii:");
-	data_wykonania = Eksponat::getIntFromConsole(
-		"Podaj date wykonania:");
-	cena_w_pln = Eksponat::getIntFromConsole(
-		"Podaj cene fotografii:");
+	typ_fotografii = Eksponat::getStringFromConsole(
+		"Podaj :");
+	uzyty_aparat = Eksponat::getStringFromConsole(
+		"Podaj :");
+	miejsce_wykonania = Eksponat::getStringFromConsole(
+		"Podaj :");
+	wysokosc_fotografii = Eksponat::getIntFromConsole(
+		"Podaj :");
+	szerokosc_fotografii = Eksponat::getIntFromConsole(
+		"Podaj :");
 }
 
 void Rzezba::dodaj() {
 	dodajPodstawowe();
-	imie_autora = Eksponat::getStringFromConsole(
-		"Podaj imie autora rzezby:");
-	nazwisko_autora = Eksponat::getStringFromConsole(
-		"Podaj nazwisko autora:");
-	narodowosc_autora = Eksponat::getStringFromConsole(
-		"Podaj narodowosc:");
-	data_wykonania = Eksponat::getIntFromConsole(
-		"Podaj date wykonania:");
-	cena_w_pln = Eksponat::getIntFromConsole(
-		"Podaj cene rzezby:");
+	rodzaj_rzezby = Eksponat::getStringFromConsole(
+		"Podaj :");
+	material = Eksponat::getStringFromConsole(
+		"Podaj :");
+	miejsce_wykonania = Eksponat::getStringFromConsole(
+		"Podaj :");
+	wysokosc_rzezby = Eksponat::getIntFromConsole(
+		"Podaj :");
+	glebokosc_rzezby = Eksponat::getIntFromConsole(
+		"Podaj :");
 }
 
 //------------------ ZAPIS <<<<<<<<<<<
