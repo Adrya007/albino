@@ -509,62 +509,62 @@ Rzezba::~Rzezba() {}
 //------------------ ZAPIS <<<<<<<<<<<
 
 void Eksponat::zapiszNaStrumien(ostream& s, bool tytuluj) const {
-	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
-	s << (tytuluj ? "Tytul: " : "") << id << endl;
-	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
-	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
-	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
+	s << (tytuluj ? "Eksponat to: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "ID eksponatu: " : "") << id << endl;
+	s << (tytuluj ? "Imie autora: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Nazwisko autora: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul dziela: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Narodowosc autora: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Data wykonania: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Cena w PLN: " : "") << cena_w_pln << endl;
 }
 
 void Obraz::zapiszNaStrumien(ostream& s, bool tytuluj) const {
-	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
-	s << (tytuluj ? "Tytul: " : "") << id << endl;
-	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
-	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
-	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
-	s << (tytuluj ? "Tytul: " : "") << uzyta_technika<< endl;
-	s << (tytuluj ? "Tytul: " : "") << uzyta_farba << endl;
-	s << (tytuluj ? "Tytul: " : "") << rodzaj_plotna << endl;
-	s << (tytuluj ? "Tytul: " : "") << wysokosc_obrazu << endl;
-	s << (tytuluj ? "Tytul: " : "") << szerokosc_obrazu << endl;
+	s << (tytuluj ? "Eksponat to: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "ID: " : "") << id << endl;
+	s << (tytuluj ? "Imie autora: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Nazwisko autora: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul dziela: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Narodowosc autora: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Data wykonania: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Cena w PLN: " : "") << cena_w_pln << endl;
+	s << (tytuluj ? "Uzyta technika: " : "") << uzyta_technika<< endl;
+	s << (tytuluj ? "Uzyta farba: " : "") << uzyta_farba << endl;
+	s << (tytuluj ? "Rodzaj plotna: " : "") << rodzaj_plotna << endl;
+	s << (tytuluj ? "Wysokosc obrazu: " : "") << wysokosc_obrazu << endl;
+	s << (tytuluj ? "Szerokosc obrazu: " : "") << szerokosc_obrazu << endl;
 }
 
 void Fotografia::zapiszNaStrumien(ostream& s, bool tytuluj) const {
-	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
-	s << (tytuluj ? "Tytul: " : "") << id << endl;
-	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
-	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
-	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
-	s << (tytuluj ? "Tytul: " : "") << typ_fotografii << endl;
-	s << (tytuluj ? "Tytul: " : "") << uzyty_aparat << endl;
-	s << (tytuluj ? "Tytul: " : "") << miejsce_wykonania << endl;
-	s << (tytuluj ? "Tytul: " : "") << wysokosc_fotografii << endl;
-	s << (tytuluj ? "Tytul: " : "") << szerokosc_fotografii << endl;
+	s << (tytuluj ? "Eksponat to: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "ID: " : "") << id << endl;
+	s << (tytuluj ? "Imie autora: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Nazwisko autora: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul dziela: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Narodowosc autora: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Data wykonania: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Cena w PLN: " : "") << cena_w_pln << endl;
+	s << (tytuluj ? "Typ fotografii: " : "") << typ_fotografii << endl;
+	s << (tytuluj ? "Uzyty aparat: " : "") << uzyty_aparat << endl;
+	s << (tytuluj ? "Miejsce wykonania zdjecia: " : "") << miejsce_wykonania << endl;
+	s << (tytuluj ? "Wysokosc: " : "") << wysokosc_fotografii << endl;
+	s << (tytuluj ? "Szerokosc: " : "") << szerokosc_fotografii << endl;
 }
 
 void Rzezba::zapiszNaStrumien(ostream& s, bool tytuluj) const {
-	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
-	s << (tytuluj ? "Tytul: " : "") << id << endl;
-	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
-	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
-	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
-	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
-	s << (tytuluj ? "Tytul: " : "") << rodzaj_rzezby << endl;
-	s << (tytuluj ? "Tytul: " : "") << material << endl;
-	s << (tytuluj ? "Tytul: " : "") << miejsce_wykonania << endl;
-	s << (tytuluj ? "Tytul: " : "") << wysokosc_rzezby << endl;
-	s << (tytuluj ? "Tytul: " : "") << glebokosc_rzezby << endl;
+	s << (tytuluj ? "Eksponat to: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "ID: " : "") << id << endl;
+	s << (tytuluj ? "Imie autora: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Nazwisko autora: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul dziela: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Narodowosc autora: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Data wykonania: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Cena w PLN: " : "") << cena_w_pln << endl;
+	s << (tytuluj ? "Rodzaj rzezby: " : "") << rodzaj_rzezby << endl;
+	s << (tytuluj ? "Material: " : "") << material << endl;
+	s << (tytuluj ? "Miejsce wykonania: " : "") << miejsce_wykonania << endl;
+	s << (tytuluj ? "Wysokosc: " : "") << wysokosc_rzezby << endl;
+	s << (tytuluj ? "Glebokosc: " : "") << glebokosc_rzezby << endl;
 }
 
 //------------------ ODCZYT >>>>>>>>>>>
