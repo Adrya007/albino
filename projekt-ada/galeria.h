@@ -30,7 +30,7 @@ public:
 	virtual ~Eksponat();
 
 	void dodaj(Eksponat* &, Eksponat* &, int);
-	virtual void zapiszNaStrumien(ostream& f) const;
+	virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
 	virtual void wczytajStrumien(istream& f);
 	virtual string czymJestes() const;
 };
@@ -84,7 +84,7 @@ public:
 		//----metody publiczne----
 		Obraz();
 		~Obraz();
-		virtual void zapiszNaStrumien(ostream& f) const;
+		virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
 		virtual void wczytajStrumien(istream& f);
 		string czymJestes() const;
 
@@ -101,7 +101,7 @@ public:
 		//----metody publiczne----
 		Fotografia();
 		~Fotografia();
-		virtual void zapiszNaStrumien(ostream& f) const;
+		virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
 		virtual void wczytajStrumien(istream& f);
 		string czymJestes() const;
 };
@@ -117,7 +117,7 @@ public:
 		//----metody publiczne----
 		Rzezba();
 		~Rzezba();
-		virtual void zapiszNaStrumien(ostream& f) const;
+		virtual void zapiszNaStrumien(ostream& f, bool tytuluj) const;
 		virtual void wczytajStrumien(istream& f);
 		string czymJestes() const;
 };

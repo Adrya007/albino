@@ -68,7 +68,7 @@ void KatalogGalerii::wypiszKatalog()
 		Eksponat* temp = lista_poczatek;
 		while(temp != nullptr)
 		{
-			temp->zapiszNaStrumien(cout);
+			temp->zapiszNaStrumien(cout, true);
 			cout << "\n==========================================\n\n";
 			temp = temp->next;
 		}
@@ -335,7 +335,7 @@ void KatalogGalerii::zapiszKatalogDoPliku (int wyswietlKomunikat, int wyswietlKo
 										cout<<"Zapisano eksponat o ID = "<<temp->id<<"\n";
 								}
 								//zapis do pliku
-								temp->zapiszNaStrumien(plik);
+								temp->zapiszNaStrumien(plik, false);
 								temp = temp->next;
 						}
 						plik.close();
@@ -463,7 +463,7 @@ void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
 		}
 		lista_koniec = wn; //nowy eksponat koncowy
 		cout << "\n>Dodano rekord:\n";
-		wn->zapiszNaStrumien(cout);
+		wn->zapiszNaStrumien(cout, true);
 		this->liczbaEksponatow++;
 	}
 }
@@ -508,63 +508,63 @@ Rzezba::~Rzezba() {}
 
 //------------------ ZAPIS <<<<<<<<<<<
 
-void Eksponat::zapiszNaStrumien(ostream& f) const {
-	f << czymJestes() << endl;
-	f << id << endl;
-	f << imie_autora << endl;
-	f << nazwisko_autora << endl;
-	f << tytul_dziela << endl;
-	f << narodowosc_autora << endl;
-	f << data_wykonania << endl;
-	f << cena_w_pln << endl;
+void Eksponat::zapiszNaStrumien(ostream& s, bool tytuluj) const {
+	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "Tytul: " : "") << id << endl;
+	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
 }
 
-void Obraz::zapiszNaStrumien(ostream& f) const {
-	f << czymJestes() << endl;
-	f << id << endl;
-	f << imie_autora << endl;
-	f << nazwisko_autora << endl;
-	f << tytul_dziela << endl;
-	f << narodowosc_autora << endl;
-	f << data_wykonania << endl;
-	f << cena_w_pln << endl;
-	f << uzyta_technika<< endl;
-	f << uzyta_farba << endl;
-	f << rodzaj_plotna << endl;
-	f << wysokosc_obrazu << endl;
-	f << szerokosc_obrazu << endl;
+void Obraz::zapiszNaStrumien(ostream& s, bool tytuluj) const {
+	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "Tytul: " : "") << id << endl;
+	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
+	s << (tytuluj ? "Tytul: " : "") << uzyta_technika<< endl;
+	s << (tytuluj ? "Tytul: " : "") << uzyta_farba << endl;
+	s << (tytuluj ? "Tytul: " : "") << rodzaj_plotna << endl;
+	s << (tytuluj ? "Tytul: " : "") << wysokosc_obrazu << endl;
+	s << (tytuluj ? "Tytul: " : "") << szerokosc_obrazu << endl;
 }
 
-void Fotografia::zapiszNaStrumien(ostream& f) const {
-	f << czymJestes() << endl;
-	f << id << endl;
-	f << imie_autora << endl;
-	f << nazwisko_autora << endl;
-	f << tytul_dziela << endl;
-	f << narodowosc_autora << endl;
-	f << data_wykonania << endl;
-	f << cena_w_pln << endl;
-	f << typ_fotografii << endl;
-	f << uzyty_aparat << endl;
-	f << miejsce_wykonania << endl;
-	f << wysokosc_fotografii << endl;
-	f << szerokosc_fotografii << endl;
+void Fotografia::zapiszNaStrumien(ostream& s, bool tytuluj) const {
+	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "Tytul: " : "") << id << endl;
+	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
+	s << (tytuluj ? "Tytul: " : "") << typ_fotografii << endl;
+	s << (tytuluj ? "Tytul: " : "") << uzyty_aparat << endl;
+	s << (tytuluj ? "Tytul: " : "") << miejsce_wykonania << endl;
+	s << (tytuluj ? "Tytul: " : "") << wysokosc_fotografii << endl;
+	s << (tytuluj ? "Tytul: " : "") << szerokosc_fotografii << endl;
 }
 
-void Rzezba::zapiszNaStrumien(ostream& f) const {
-	f << czymJestes() << endl;
-	f << id << endl;
-	f << imie_autora << endl;
-	f << nazwisko_autora << endl;
-	f << tytul_dziela << endl;
-	f << narodowosc_autora << endl;
-	f << data_wykonania << endl;
-	f << cena_w_pln << endl;
-	f << rodzaj_rzezby << endl;
-	f << material << endl;
-	f << miejsce_wykonania << endl;
-	f << wysokosc_rzezby << endl;
-	f << glebokosc_rzezby << endl;
+void Rzezba::zapiszNaStrumien(ostream& s, bool tytuluj) const {
+	s << (tytuluj ? "Tytul: " : "") << czymJestes() << endl;
+	s << (tytuluj ? "Tytul: " : "") << id << endl;
+	s << (tytuluj ? "Tytul: " : "") << imie_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << nazwisko_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << tytul_dziela << endl;
+	s << (tytuluj ? "Tytul: " : "") << narodowosc_autora << endl;
+	s << (tytuluj ? "Tytul: " : "") << data_wykonania << endl;
+	s << (tytuluj ? "Tytul: " : "") << cena_w_pln << endl;
+	s << (tytuluj ? "Tytul: " : "") << rodzaj_rzezby << endl;
+	s << (tytuluj ? "Tytul: " : "") << material << endl;
+	s << (tytuluj ? "Tytul: " : "") << miejsce_wykonania << endl;
+	s << (tytuluj ? "Tytul: " : "") << wysokosc_rzezby << endl;
+	s << (tytuluj ? "Tytul: " : "") << glebokosc_rzezby << endl;
 }
 
 //------------------ ODCZYT >>>>>>>>>>>
