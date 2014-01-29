@@ -10,7 +10,7 @@ using namespace std;
 
 KatalogGalerii::KatalogGalerii(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik)
 {
-		init(miejsce_galerii, czy_bilety, czy_przewodnik);
+	init(miejsce_galerii, czy_bilety, czy_przewodnik);
 }
 
 void KatalogGalerii::init(string miejsce_galerii, bool czy_bilety, bool czy_przewodnik) {
@@ -80,7 +80,7 @@ void KatalogGalerii::wypiszKatalog()
 
 // gdzie_dodac == 1 na koniec listy, gdzie_dodac == 0 na poczatek
 
-void KatalogGalerii::dodaj(Eksponat* &w_l, Eksponat* &w_k, int gdzie_dodac)
+void KatalogGalerii::dodaj(bool dodajNaKoncu)
 {
 		Eksponat* wn = new Eksponat;
 		//++ wartosci zmiennych prywatnych
@@ -140,25 +140,25 @@ void KatalogGalerii::dodaj(Eksponat* &w_l, Eksponat* &w_k, int gdzie_dodac)
 				getline(cin,cena_w_pln);
 				cena_w_pln_int= atoi(cena_w_pln.c_str());
 		}
-		if(gdzie_dodac == 1) { //1 - na koniec listy
-				wn->prev = w_k; //obecny koniec listy
+		if (dodajNaKoncu) { //1 - na koniec listy
+				wn->prev = lista_koniec; //obecny koniec listy
 				wn->next = nullptr; //nastepny element jest jeszcze nullptr - wlasnie jest dodawany ostatni element
-				if(w_k != nullptr) {
-						w_k->next = wn;
+				if(lista_koniec != nullptr) {
+						lista_koniec->next = wn;
 				} else {
-						w_l = wn;
+						lista_poczatek = wn;
 				}
-				w_k = wn; //nowy element koncowy - wn (Wskaznik Nowy na element ktory wlasnie dodano)
+				lista_koniec = wn; //nowy element koncowy - wn (Wskaznik Nowy na element ktory wlasnie dodano)
 				cout<<"\nDodano na koniec listy!";
 		} else { //gdzie_dodac==0 to dodajemy na poczatek listy
 				wn->prev = nullptr;
-				wn->next = w_l;
-				if(w_l != nullptr) {
-						w_l->prev = wn;
+				wn->next = lista_poczatek;
+				if(lista_poczatek != nullptr) {
+						lista_poczatek->prev = wn;
 				} else {
-						w_k = wn;
+						lista_koniec = wn;
 				}
-				w_l = wn; //nowy poczatek listy
+				lista_poczatek = wn; //nowy poczatek listy
 				cout<<"\nDodano na poczatek listy!";
 		}
 }
@@ -166,13 +166,13 @@ void KatalogGalerii::dodaj(Eksponat* &w_l, Eksponat* &w_k, int gdzie_dodac)
 //-------------------------------------
 void KatalogGalerii::dodajNaPoczatek()
 {
-		KatalogGalerii::dodaj(this->lista_poczatek, this->lista_koniec, 0);
+	KatalogGalerii::dodaj(false);
 }
 
 //-------------------------------------
 void KatalogGalerii::dodajNaKoniec()
 {
-		KatalogGalerii::dodaj(this->lista_poczatek, this->lista_koniec, 1);
+	KatalogGalerii::dodaj(true);
 }
 
 //---------------------------------------
@@ -396,7 +396,7 @@ void KatalogGalerii::skasujKatalog(int wyswietlKomunikat)
 void KatalogGalerii::wczytajKatalogZPliku(bool komunikat, bool czy_kasowac)
 {
 	bool zaladuj_baze;
-	if (komunikat == 1) //wyswietl komunikat z pytaniem czy zaladowac baze
+	if (komunikat) //wyswietl komunikat z pytaniem czy zaladowac baze
 	{
 		cout<<"Czy chcesz wczytac baze danych z pliku do pamieci programu?\n"
 				<<"(Baza zawarta w pamieci programu zostanie nadpisana baza z pliku)\n"
@@ -407,10 +407,10 @@ void KatalogGalerii::wczytajKatalogZPliku(bool komunikat, bool czy_kasowac)
 				nawigacja_dodaj = _getch();
 		} while(nawigacja_dodaj != '1' && nawigacja_dodaj != '2');
 		if(nawigacja_dodaj == '1') {
-				zaladuj_baze = 1;
+				zaladuj_baze = true;
 				cout << "Wczytano.\n";
 		} else {
-				zaladuj_baze = 0;
+				zaladuj_baze = false;
 				cout << "Anulowano.\n";
 		}
 	} else { //brak komunikatu, baza ladowana automatycznie
@@ -420,7 +420,7 @@ void KatalogGalerii::wczytajKatalogZPliku(bool komunikat, bool czy_kasowac)
 			return;
 	//skasowanie obecnej bazy w pamieci programu
 	//jesli baza ladowana przy pierwszym uruchomieniu programu -> nie uruchamiana jest funkcji kasujaca
-	if(czy_kasowac == 1) { //true = uruchom funkcje kasujaca baze
+	if(czy_kasowac) { //true = uruchom funkcje kasujaca baze
 			skasujKatalog();
 	}
 	// odczyt bazy
@@ -462,7 +462,7 @@ void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
 				lista_poczatek = wn;
 		}
 		lista_koniec = wn; //nowy eksponat koncowy
-		cout << "Dodano rekord:\n";
+		cout << "\n>Dodano rekord:\n";
 		wn->zapiszNaStrumien(cout);
 		this->liczbaEksponatow++;
 	}

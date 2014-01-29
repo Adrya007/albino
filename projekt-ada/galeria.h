@@ -64,7 +64,7 @@ public:
 		void wczytajKatalogZPliku(bool, bool);
 		void zapiszKatalogDoPliku(int wyswietlKomunikat=1, int wyswietlKomunikat2=1);
 		void returnAutoIncrementAndLiczbaRekordow();
-		void dodaj(Eksponat* &, Eksponat* &, int);
+		void dodaj(bool dodajNaKoncu);
 		void dodajNaPoczatek();
 		void dodajNaKoniec();
 		void edytujEksponat();

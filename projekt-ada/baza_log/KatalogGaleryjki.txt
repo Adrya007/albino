@@ -1,15 +1,55 @@
+rzezba
 1
-Rzezba damy
+Piekna dama
 dr inz Adam
 Wojtasik
 Polska
 2013
 20000
+akt
+marmur
+Ogrod saski
+120
+50
+fotografia
 2
-Fotografia kota
+Pasja PROE
 dr inz Rafal
 Biedrzycki
 Poland
 2014
 15000
+sepia
+canon
+WEiTI PW
+20
+20
+obraz
+3
+Sloneczniki
+Vincent
+Van Gogh
+Holandia
+1888
+2000000
+martwa natura
+olejna
+biale
+93
+73
+rzezba
+4
+Dawid
+Michelangelo
+Buonarroti
+Wlochy
+1501
+34567890
+akt
+marmur
+Francja katedra florencka
+434
+100
+
+
 
