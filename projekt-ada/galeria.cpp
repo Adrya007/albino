@@ -511,43 +511,43 @@ void Eksponat::dodaj() {
 void Obraz::dodaj() {
 	dodajPodstawowe();
 	uzyta_technika = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj technike jaka namalowano obraz: ");
 	uzyta_farba = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj jakiej farby uzyto: ");
 	rodzaj_plotna = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj rodzaj uzytego plotna: ");
 	wysokosc_obrazu = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj wysokosc obrazu: ");
 	szerokosc_obrazu = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj szerokosc obrazu: ");
 }
 
 void Fotografia::dodaj() {
 	dodajPodstawowe();
 	typ_fotografii = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj typ fotografii: ");
 	uzyty_aparat = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj jakim aparatem robiono zdjecie: ");
 	miejsce_wykonania = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj miejsce wykonania zdjecia: ");
 	wysokosc_fotografii = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj wysokosc fotografii: ");
 	szerokosc_fotografii = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj szerokosc fotografii: ");
 }
 
 void Rzezba::dodaj() {
 	dodajPodstawowe();
 	rodzaj_rzezby = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj jaki to jest rodzaj rzezby: ");
 	material = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj material z jakiego wykonana jest rzezba: ");
 	miejsce_wykonania = Eksponat::getStringFromConsole(
-		"Podaj :");
+		"Podaj miejsce gdzie wykonano rzezbe: ");
 	wysokosc_rzezby = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj wysokosc rzezby: ");
 	glebokosc_rzezby = Eksponat::getIntFromConsole(
-		"Podaj :");
+		"Podaj szerokosc rzezby: ");
 }
 
 //------------------ ZAPIS <<<<<<<<<<<
