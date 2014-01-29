@@ -417,12 +417,11 @@ void KatalogGalerii::dodajEksponatyBezposrednio(ifstream& file)
 {
 	Eksponat* wn = nullptr;
 	string typ;
-	getline(file, typ);
 	while (!file.eof()) {
+		typ = "";
 		while (!file.eof() && typ == "")
 			getline(file, typ);
-		if (file.eof())
-			break;
+		if (file.eof()) break;
 		if (typ == "eksponat") {
 			wn = new Eksponat();
 		} else if (typ == "obraz") {
@@ -512,43 +511,43 @@ void Eksponat::dodaj() {
 void Obraz::dodaj() {
 	dodajPodstawowe();
 	uzyta_technika = Eksponat::getStringFromConsole(
-		"Podaj technike jaka namalowano obraz: ");
+		"Podaj :");
 	uzyta_farba = Eksponat::getStringFromConsole(
-		"Podaj jakiej farby uzyto: ");
+		"Podaj :");
 	rodzaj_plotna = Eksponat::getStringFromConsole(
-		"Podaj rodzaj uzytego plotna: ");
+		"Podaj :");
 	wysokosc_obrazu = Eksponat::getIntFromConsole(
-		"Podaj wysokosc obrazu: ");
+		"Podaj :");
 	szerokosc_obrazu = Eksponat::getIntFromConsole(
-		"Podaj szerokosc obrazu: ");
+		"Podaj :");
 }
 
 void Fotografia::dodaj() {
 	dodajPodstawowe();
 	typ_fotografii = Eksponat::getStringFromConsole(
-		"Podaj typ fotografii: ");
+		"Podaj :");
 	uzyty_aparat = Eksponat::getStringFromConsole(
-		"Podaj jakim aparatem robiono zdjecie: ");
+		"Podaj :");
 	miejsce_wykonania = Eksponat::getStringFromConsole(
-		"Podaj miejsce wykonania zdjecia: ");
+		"Podaj :");
 	wysokosc_fotografii = Eksponat::getIntFromConsole(
-		"Podaj wysokosc fotografii: ");
+		"Podaj :");
 	szerokosc_fotografii = Eksponat::getIntFromConsole(
-		"Podaj szerokosc fotografii: ");
+		"Podaj :");
 }
 
 void Rzezba::dodaj() {
 	dodajPodstawowe();
 	rodzaj_rzezby = Eksponat::getStringFromConsole(
-		"Podaj jaki to jest rodzaj rzezby: ");
+		"Podaj :");
 	material = Eksponat::getStringFromConsole(
-		"Podaj material z jakiego wykonana jest rzezba: ");
+		"Podaj :");
 	miejsce_wykonania = Eksponat::getStringFromConsole(
-		"Podaj miejsce gdzie wykonano rzezbe: ");
+		"Podaj :");
 	wysokosc_rzezby = Eksponat::getIntFromConsole(
-		"Podaj wysokosc rzezby: ");
+		"Podaj :");
 	glebokosc_rzezby = Eksponat::getIntFromConsole(
-		"Podaj szerokosc rzezby: ");
+		"Podaj :");
 }
 
 //------------------ ZAPIS <<<<<<<<<<<
